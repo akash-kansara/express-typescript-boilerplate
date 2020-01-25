@@ -1,0 +1,210 @@
+const loki = require('lokijs');
+import { get, set } from 'lodash';
+
+import eventHandler from '../../../event';
+
+import IRepository from '../definition';
+
+class LokiRepository implements IRepository {
+
+  public provider: string = 'LokiDB';
+  private isConnected: boolean = false;
+  private dbObj: any;
+
+  constructor(connParams: object) {
+    this.dbObj = new loki(get(connParams, 'db') as string, { adapter: new loki.LokiMemoryAdapter() });
+    eventHandler.emit('repo-conn-s', this.provider, connParams);
+    this.isConnected = true;
+    eventHandler.emit('repo-warn', `${this.provider} repository is a very unsafe database, use for development only!`);
+    eventHandler.emit('repo-warn', `All CRUD operations will be lost on every restart`);
+  }
+
+  public disconnect(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (this.isConnected) {
+        this.dbObj.deleteDatabase();
+        resolve();
+      } else {
+        eventHandler.emit('repo-disconn-f', this.provider, 'Connection was not established');
+        reject();
+      }
+    });
+  }
+
+  public insertOne(schema: string, data: object): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (this.isConnected) {
+        if (this.dbObj.getCollection(schema) === null) { this.dbObj.addCollection(schema); }
+        const collection = this.dbObj.getCollection(schema);
+        collection.insert(data);
+        resolve();
+      } else {
+        eventHandler.emit(
+          'repo-op-f',
+          this.provider,
+          'Insert One',
+          data,
+          'Connection was not established'
+        );
+        reject();
+      }
+    });
+  }
+
+  public updateOne(schema: string, filter: object, data: object): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (this.isConnected) {
+        if (this.dbObj.getCollection(schema) === null) {
+          const collection = this.dbObj.addCollection(schema);
+          collection.insert(data);
+          resolve();
+        } else {
+          const object = this.dbObj.getCollection(schema).findOne(filter);
+          Object.keys(data).forEach((key) => { set(object, key, get(data, key)); });
+          resolve();
+        }
+      } else {
+        eventHandler.emit(
+          'repo-op-f',
+          this.provider,
+          'Update One',
+          data,
+          'Connection was not established'
+        );
+        reject();
+      }
+    });
+  }
+
+  public readMany(schema: string, filter: object): Promise<void | object[]> {
+    return new Promise((resolve, reject) => {
+      if (this.isConnected) {
+        if (this.dbObj.getCollection(schema) === null) {
+          resolve([]);
+        } else {
+          const result = this.dbObj.getCollection(schema).find(filter);
+          resolve(result);
+        }
+      } else {
+        eventHandler.emit(
+          'repo-op-f',
+          this.provider,
+          'Read many',
+          filter,
+          'Connection was not established'
+        );
+        reject();
+      }
+    });
+  }
+
+  public readOne(schema: string, filter: object): Promise<void | object> {
+    return new Promise((resolve, reject) => {
+      if (this.isConnected) {
+        if (this.dbObj.getCollection(schema) === null) {
+          resolve();
+        } else {
+          const result = this.dbObj.getCollection(schema).findOne(filter);
+          resolve(result);
+        }
+      } else {
+        eventHandler.emit(
+          'repo-op-f',
+          this.provider,
+          'Read one',
+          filter,
+          'Connection was not established'
+        );
+        reject();
+      }
+    });
+  }
+
+  public deleteOne(schema: string, filter: object): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (this.isConnected) {
+        if (this.dbObj.getCollection(schema) === null) {
+          resolve();
+        } else {
+          const obj = this.dbObj.getCollection(schema).findOne(filter);
+          this.dbObj.getCollection(schema).remove(get(obj, '$loki'));
+          resolve();
+        }
+      } else {
+        eventHandler.emit(
+          'repo-op-f',
+          this.provider,
+          'Delete one',
+          filter,
+          'Connection was not established'
+        );
+        reject();
+      }
+    });
+  }
+
+  public checkIfExists(schema: string, filter: object): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (this.isConnected) {
+        this.readOne(schema, filter)
+          .then((result: any) => {
+            if (result === null || result === undefined) { reject(); }
+            else { resolve(); }
+          })
+          .catch(() => {
+            eventHandler.emit(
+              'repo-op-f',
+              this.provider,
+              'Check if exists',
+              filter,
+              'Failed while reading record'
+            );
+            reject();
+          });
+      } else {
+        eventHandler.emit(
+          'repo-op-f',
+          this.provider,
+          'Check if exists',
+          filter,
+          'Connection was not established'
+        );
+        reject();
+      }
+    });
+  }
+
+  public checkIfNotExists(schema: string, filter: object): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (this.isConnected) {
+        this.readOne(schema, filter)
+          .then((result: any) => {
+            if (result === null || result === undefined) { resolve(); }
+            else { reject(); }
+          })
+          .catch(() => {
+            eventHandler.emit(
+              'repo-op-f',
+              this.provider,
+              'Check if exists',
+              filter,
+              'Failed while reading record'
+            );
+            reject();
+          });
+      } else {
+        eventHandler.emit(
+          'repo-op-f',
+          this.provider,
+          'Check if exists',
+          filter,
+          'Connection was not established'
+        );
+        reject();
+      }
+    });
+  }
+
+}
+
+export default LokiRepository;

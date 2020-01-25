@@ -1,0 +1,11 @@
+GET http://localhost:3000/auth/login
+Authorization: Basic cm9vdDpyb290
+
+###
+
+GET http://localhost:3000/auth/refresh-token
+Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpYXQiOjE1Nzk5NTQ3MDAsImV4cCI6MTU3OTk1ODMwMH0.4QW750YLnjZ3UQVa_rxoxJOO9fPQQfsSUcovp1lkh9Y
+
+###
+GET http://localhost:3000/mdm/user
+Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpYXQiOjE1Nzk5NjEyNTIsImV4cCI6MTU3OTk2MTI2N30.c7UwB3nvj8c1VuXL2QXkV1E7_D-X0qDa853VdYLP9Do

@@ -1,0 +1,488 @@
+{
+  "info": {
+    "description": "API documentation for Boiler",
+    "title": "Swagger",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http"
+  ],
+  "swagger": "2.0",
+  "paths": {
+    "/auth/login": {
+      "get": {
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "",
+        "tags": [
+          "Security"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Token"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/OPStatus"
+            }
+          }
+        }
+      }
+    },
+    "/auth/refresh-token": {
+      "get": {
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "description": "",
+        "tags": [
+          "Security"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Token"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/OPStatus"
+            }
+          }
+        }
+      }
+    },
+    "/mdm/user": {
+      "post": {
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateUser"
+            }
+          }
+        ],
+        "description": "",
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/OPStatus"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/OPStatus"
+            }
+          }
+        }
+      },
+      "get": {
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "parameters": [],
+        "description": "",
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/OPStatus"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateUser"
+            }
+          }
+        ],
+        "description": "",
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/OPStatus"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/OPStatus"
+            }
+          }
+        }
+      }
+    },
+    "/mdm/product": {
+      "post": {
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateProduct"
+            }
+          }
+        ],
+        "description": "",
+        "tags": [
+          "Product"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/OPStatus"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/OPStatus"
+            }
+          }
+        }
+      },
+      "get": {
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "parameters": [],
+        "description": "",
+        "tags": [
+          "Product"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/OPStatus"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateProduct"
+            }
+          }
+        ],
+        "description": "",
+        "tags": [
+          "Product"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/OPStatus"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/OPStatus"
+            }
+          }
+        }
+      }
+    },
+    "/sales": {
+      "get": {
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "parameters": [],
+        "description": "",
+        "tags": [
+          "Sales"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Sale"
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/OPStatus"
+            }
+          }
+        }
+      }
+    },
+    "/sales/post": {
+      "post": {
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PostSale"
+            }
+          }
+        ],
+        "description": "",
+        "tags": [
+          "Sales"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/OPStatus"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/OPStatus"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Token": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string"
+        },
+        "refreshToken": {
+          "type": "string"
+        }
+      }
+    },
+    "CreateUser": {
+      "$ref": "#/definitions/User"
+    },
+    "UpdateUser": {
+      "$ref": "#/definitions/User"
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "dob": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "CreateProduct": {
+      "$ref": "#/definitions/Product"
+    },
+    "UpdateProduct": {
+      "$ref": "#/definitions/Product"
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "desc": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "price": {
+          "type": "number"
+        }
+      }
+    },
+    "PostSale": {
+      "$ref": "#/definitions/Sale"
+    },
+    "Sale": {
+      "type": "object",
+      "properties": {
+        "product_code": {
+          "type": "string"
+        },
+        "user_email": {
+          "type": "string",
+          "format": "email"
+        },
+        "quantity": {
+          "type": "integer"
+        }
+      }
+    },
+    "OPStatus": {
+      "required": [
+        "statusCode",
+        "status",
+        "description",
+        "statusType",
+        "message"
+      ],
+      "properties": {
+        "statusCode": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "statusType": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "responses": {},
+  "parameters": {},
+  "securityDefinitions": {
+    "basicAuth": {
+      "type": "basic"
+    },
+    "token": {
+      "type": "apiKey",
+      "name": "Bearer",
+      "in": "header"
+    }
+  },
+  "tags": [
+    {
+      "name": "User",
+      "description": "To manage user data"
+    },
+    {
+      "name": "Product",
+      "description": "To manage product data"
+    },
+    {
+      "name": "Sales",
+      "description": "To manage sales data"
+    },
+    {
+      "name": "Security",
+      "description": "To implement authorization and access controls"
+    }
+  ]
+}
