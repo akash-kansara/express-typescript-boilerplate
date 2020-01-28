@@ -1,6 +1,6 @@
 # Express TypeScript Boilerplate
 
-This project attempts to provide a simple framework for API development using [express](https://github.com/expressjs/express) with the freedom of selecting and implementing your own database.
+This project attempts to provide a simple framework for API development using [express](https://github.com/expressjs/express) with the freedom of selecting and implementing any database.
 
 ## Application Business logic
 
