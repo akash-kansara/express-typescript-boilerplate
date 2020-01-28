@@ -1,6 +1,10 @@
 # Express TypeScript Boilerplate
 
-This project attempts to provide a simple framework for API development using [express](https://github.com/expressjs/express).
+This project attempts to provide a simple framework for API development using [express](https://github.com/expressjs/express) with the freedom of selecting and implementing your own database.
+
+## Application Business logic
+
+This app implements a small retail store wherein store administrators can create users (customers), products and post a sale transaction. Each sale transaction record has an active user (customer) and active product.
 
 ## Project structure
 | Folder Path | Description |
