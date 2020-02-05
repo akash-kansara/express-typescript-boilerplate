@@ -2,17 +2,24 @@ import { sign, verify } from 'jsonwebtoken';
 import { get } from 'lodash';
 
 import 'reflect-metadata';
-import { injectable } from 'inversify';
-
-import repository from '../../core/repository';
+import { injectable, inject } from 'inversify';
 import { Token, TokenError } from '../../entity/oauth2';
 
+import IRepository from '../../core/repository/definition';
 import IOAuth2 from '../../service/oauth2';
+import { TYPES } from '../../di/types';
 
 const tokenSchema = 'app-refresh-tokens';
 
 @injectable()
 export default class JwtController implements IOAuth2 {
+
+  private repository: IRepository;
+  constructor(
+    @inject(TYPES.IRepository) repository: IRepository
+  ) {
+    this.repository = repository;
+  }
 
   public async generate(user: string | object) {
     return new Promise<TokenError | Token>(async (resolve, reject) => {
@@ -28,7 +35,7 @@ export default class JwtController implements IOAuth2 {
           { expiresIn: '1h' }
         );
         resolve(new Token(accessToken, refreshToken));
-        repository.insertOne(tokenSchema, { refreshToken }).then().catch();
+        this.repository.insertOne(tokenSchema, { refreshToken }).then().catch();
       } catch (err) {
         reject(new TokenError());
       }
@@ -38,13 +45,13 @@ export default class JwtController implements IOAuth2 {
   public async refresh(refreshToken: string) {
     return new Promise<TokenError | Token>(async (resolve, reject) => {
       try {
-        const queryToken = await repository.readOne(tokenSchema, { refreshToken });
+        const queryToken = await this.repository.readOne(tokenSchema, { refreshToken });
         if (queryToken) {
           this.validate(refreshToken, process.env['APP.SECURITY.REFRESH_TOKEN_SECRET'] || '')
             .then((user: object) => this.generate(user))
             .then((token: TokenError | Token) => {
               resolve(token);
-              repository.deleteOne('app-refresh-tokens', { refreshToken }).then().catch();
+              this.repository.deleteOne('app-refresh-tokens', { refreshToken }).then().catch();
             })
             .catch((error: TokenError) => reject(error));
         } else {

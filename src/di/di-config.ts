@@ -20,17 +20,17 @@ const myContainer = new Container();
 
 switch(process.env['REPOSITORY.DEFAULT']) {
   case 'MONGO':
-    myContainer.bind<IRepository>(TYPES.IRepository).to(MongoRepo);
+    myContainer.bind<IRepository>(TYPES.IRepository).to(MongoRepo).inSingletonScope();
     break;
   case 'LOKI':
-    myContainer.bind<IRepository>(TYPES.IRepository).to(LokiRepo);
+    myContainer.bind<IRepository>(TYPES.IRepository).to(LokiRepo).inSingletonScope();
     break;
   default:
-    myContainer.bind<IRepository>(TYPES.IRepository).to(LokiRepo);
+    myContainer.bind<IRepository>(TYPES.IRepository).to(LokiRepo).inSingletonScope();
     break;
 }
- 
+
 myContainer.bind<IBasicAuth>(TYPES.BasicAuthController).to(BasicAuthController)
-// myContainer.bind<IOAuth2>(TYPES.OAuth2Controller).to(JwtController)
+myContainer.bind<IOAuth2>(TYPES.OAuth2Controller).to(JwtController)
 
 export { myContainer };

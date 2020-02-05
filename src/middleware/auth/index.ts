@@ -11,10 +11,9 @@ import { TYPES } from '../../di/types';
 
 import IBasicAuth from '../../service/basic-auth';
 import IOAuth2 from '../../service/oauth2';
-import JWTController from '../../controller/jwt';
 
 const basicAuth: IBasicAuth = myContainer.get<IBasicAuth>(TYPES.BasicAuthController);
-const jwt: IOAuth2 = new JWTController();
+const oAuth2Controller: IOAuth2 = myContainer.get<IOAuth2>(TYPES.OAuth2Controller);
 
 function authenticate(req: Request, res: Response, next: NextFunction) {
   const user: BasicAuthResult | undefined = parse(req.get('Authorization') || '');
@@ -25,7 +24,7 @@ function authenticate(req: Request, res: Response, next: NextFunction) {
 
 function authorize(req: Request, res: Response, next: NextFunction) {
   const token = req.get('bearer') || '';
-  jwt.validate(token, process.env['APP.SECURITY.ACCESS_TOKEN_SECRET'] || '')
+  oAuth2Controller.validate(token, process.env['APP.SECURITY.ACCESS_TOKEN_SECRET'] || '')
     .then((user: string | object) => {
       set(req, 'user', user);
       next();
