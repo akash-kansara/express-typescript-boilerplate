@@ -13,6 +13,7 @@ This app implements a small retail store wherein store administrators can create
 | logs/ | Logs directory |
 | src/controller/ | API Controller implementation of services defined in src/sevice/ |
 | src/core/ | Generic functions required across the project |
+| src/di/ | Dependency injection configuration. Implemented using [inversify](https://www.npmjs.com/package/inversify) |
 | src/core/repository/ | Database implementation. Currently supports [MongoDB](https://www.mongodb.com/) and [LokiJS](https://github.com/techfort/LokiJS). |
 | src/entity/ | Class and Interface definitions |
 | src/error-handler | Express error handler with custom error objects |
