@@ -3,11 +3,11 @@ import { get } from 'lodash';
 
 import 'reflect-metadata';
 import { injectable, inject } from 'inversify';
-import { Token, TokenError } from '../../entity/oauth2';
-
+import { TYPES } from '../../di/types';
 import IRepository from '../../core/repository/definition';
 import IOAuth2 from '../../service/oauth2';
-import { TYPES } from '../../di/types';
+
+import { Token, TokenError } from '../../entity/oauth2';
 
 const tokenSchema = 'app-refresh-tokens';
 

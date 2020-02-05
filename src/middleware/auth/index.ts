@@ -2,15 +2,14 @@ import { Request, Response, NextFunction } from 'express';
 import { parse, BasicAuthResult } from 'basic-auth';
 import { get, set } from 'lodash';
 
+import { myContainer } from '../../di/di-config';
+import { TYPES } from '../../di/types';
+import IBasicAuth from '../../service/basic-auth';
+import IOAuth2 from '../../service/oauth2';
+
 import { AuthenticationError, AuthorizationError } from '../../error-handler/definition';
 import { BasicAuthError, UserCredential } from '../../entity/basic-auth';
 import { TokenError } from '../../entity/oauth2';
-
-import { myContainer } from '../../di/di-config';
-import { TYPES } from '../../di/types';
-
-import IBasicAuth from '../../service/basic-auth';
-import IOAuth2 from '../../service/oauth2';
 
 const basicAuth: IBasicAuth = myContainer.get<IBasicAuth>(TYPES.BasicAuthController);
 const oAuth2Controller: IOAuth2 = myContainer.get<IOAuth2>(TYPES.OAuth2Controller);

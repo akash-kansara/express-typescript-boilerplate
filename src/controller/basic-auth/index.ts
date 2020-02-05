@@ -2,10 +2,9 @@ import { get } from 'lodash';
 
 import 'reflect-metadata';
 import { injectable } from 'inversify';
+import IBasicAuth from '../../service/basic-auth';
 
 import { UserCredential, BasicAuthError } from '../../entity/basic-auth';
-
-import IBasicAuth from '../../service/basic-auth';
 
 const users = [
   {

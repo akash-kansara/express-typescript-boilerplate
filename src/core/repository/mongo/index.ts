@@ -2,10 +2,9 @@ import { MongoClient, MongoError, MongoClientOptions, InsertOneWriteOpResult, Up
 
 import 'reflect-metadata';
 import { injectable } from 'inversify';
+import IRepository from '../definition';
 
 import eventHandler from '../../../event';
-
-import IRepository from '../definition';
 
 @injectable()
 class MongoRepository implements IRepository {

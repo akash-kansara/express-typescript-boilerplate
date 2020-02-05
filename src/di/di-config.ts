@@ -30,7 +30,7 @@ switch(process.env['REPOSITORY.DEFAULT']) {
     break;
 }
 
-myContainer.bind<IBasicAuth>(TYPES.BasicAuthController).to(BasicAuthController)
-myContainer.bind<IOAuth2>(TYPES.OAuth2Controller).to(JwtController)
+myContainer.bind<IBasicAuth>(TYPES.BasicAuthController).to(BasicAuthController).inSingletonScope();
+myContainer.bind<IOAuth2>(TYPES.OAuth2Controller).to(JwtController).inSingletonScope();
 
 export { myContainer };

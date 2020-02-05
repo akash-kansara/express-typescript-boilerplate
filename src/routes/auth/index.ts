@@ -2,15 +2,14 @@ import { Router, Request, Response, NextFunction } from 'express';
 import { parse, BasicAuthResult } from 'basic-auth';
 import { get } from 'lodash';
 
+import { myContainer } from '../../di/di-config';
+import { TYPES } from '../../di/types';
+import IOAuth2 from '../../service/oauth2';
+
 import { authenticate } from '../../middleware/auth/index';
 
 import { AuthorizationError } from '../../error-handler/definition';
 import { TokenError, Token } from '../../entity/oauth2';
-
-import { myContainer } from '../../di/di-config';
-import { TYPES } from '../../di/types';
-
-import IOAuth2 from '../../service/oauth2';
 
 const oAuth2Controller: IOAuth2 = myContainer.get<IOAuth2>(TYPES.OAuth2Controller);
 
