@@ -7,10 +7,10 @@ import { authenticate } from '../../middleware/auth/index';
 import { AuthorizationError } from '../../error-handler/definition';
 import { TokenError, Token } from '../../entity/oauth2';
 
-import IOauth2Service from '../../service/oauth2';
+import IOAuth2 from '../../service/oauth2';
 import JWT from '../../controller/jwt';
 
-const jwt: IOauth2Service = new JWT();
+const jwt: IOAuth2 = new JWT();
 
 const router = Router();
 

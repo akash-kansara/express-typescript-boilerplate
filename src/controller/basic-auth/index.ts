@@ -1,5 +1,8 @@
 import { get } from 'lodash';
 
+import 'reflect-metadata';
+import { injectable } from 'inversify';
+
 import { UserCredential, BasicAuthError } from '../../entity/basic-auth';
 
 import IBasicAuth from '../../service/basic-auth';
@@ -22,6 +25,7 @@ if (process.env['NODE_ENV'] === 'dev') {
   });
 }
 
+@injectable()
 export default class BasicAuthController implements IBasicAuth {
 
   public async authenticate(userCred: UserCredential) {

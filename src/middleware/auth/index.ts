@@ -6,13 +6,15 @@ import { AuthenticationError, AuthorizationError } from '../../error-handler/def
 import { BasicAuthError, UserCredential } from '../../entity/basic-auth';
 import { TokenError } from '../../entity/oauth2';
 
+import { myContainer } from '../../di/di-config';
+import { TYPES } from '../../di/types';
+
 import IBasicAuth from '../../service/basic-auth';
-import IOauth2Service from '../../service/oauth2';
-import BasicAuthController from '../../controller/basic-auth';
+import IOAuth2 from '../../service/oauth2';
 import JWTController from '../../controller/jwt';
 
-const basicAuth: IBasicAuth = new BasicAuthController();
-const jwt: IOauth2Service = new JWTController();
+const basicAuth: IBasicAuth = myContainer.get<IBasicAuth>(TYPES.BasicAuthController);
+const jwt: IOAuth2 = new JWTController();
 
 function authenticate(req: Request, res: Response, next: NextFunction) {
   const user: BasicAuthResult | undefined = parse(req.get('Authorization') || '');

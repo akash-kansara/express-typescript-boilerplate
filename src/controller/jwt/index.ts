@@ -1,14 +1,18 @@
 import { sign, verify } from 'jsonwebtoken';
 import { get } from 'lodash';
 
+import 'reflect-metadata';
+import { injectable } from 'inversify';
+
 import repository from '../../core/repository';
 import { Token, TokenError } from '../../entity/oauth2';
 
-import IOauth2Service from '../../service/oauth2';
+import IOAuth2 from '../../service/oauth2';
 
 const tokenSchema = 'app-refresh-tokens';
 
-export default class JwtController implements IOauth2Service {
+@injectable()
+export default class JwtController implements IOAuth2 {
 
   public async generate(user: string | object) {
     return new Promise<TokenError | Token>(async (resolve, reject) => {
