@@ -1,17 +1,8 @@
+import { myContainer } from '../../di/di-config';
+import { TYPES } from '../../di/types';
+
 import IRepository from './definition';
-import MongoRepo from './mongo';
-import LokiRepo from './loki';
 
-let repository: IRepository = new LokiRepo();
-
-switch (process.env['REPOSITORY.DEFAULT']) {
-  case 'MONGO':
-    repository.disconnect();
-    repository = new MongoRepo();
-    break;
-  case 'LOKI':
-    // DEFAULT CASE ALREADY DONE
-    break;
-}
+let repository: IRepository = myContainer.get<IRepository>(TYPES.IRepository);
 
 export default repository;

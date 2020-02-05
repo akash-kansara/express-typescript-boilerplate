@@ -1,5 +1,7 @@
 import './env';
 
+import './di';
+
 import express from 'express';
 import { Server } from 'http';
 

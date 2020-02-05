@@ -1,10 +1,14 @@
 const loki = require('lokijs');
 import { get, set } from 'lodash';
 
+import 'reflect-metadata';
+import { injectable } from 'inversify';
+
 import eventHandler from '../../../event';
 
 import IRepository from '../definition';
 
+@injectable()
 class LokiRepository implements IRepository {
 
   public provider: string = 'LokiDB';

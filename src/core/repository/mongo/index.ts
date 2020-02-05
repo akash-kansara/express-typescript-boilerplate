@@ -1,9 +1,13 @@
 import { MongoClient, MongoError, MongoClientOptions, InsertOneWriteOpResult, UpdateWriteOpResult, DeleteWriteOpResultObject } from 'mongodb';
 
+import 'reflect-metadata';
+import { injectable } from 'inversify';
+
 import eventHandler from '../../../event';
 
 import IRepository from '../definition';
 
+@injectable()
 class MongoRepository implements IRepository {
 
   public provider: string = 'MongoDB';
