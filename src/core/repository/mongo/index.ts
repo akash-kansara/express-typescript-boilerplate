@@ -1,5 +1,4 @@
-import { MongoClient, MongoError, MongoClientOptions, Db, InsertOneWriteOpResult, UpdateWriteOpResult, DeleteWriteOpResultObject } from 'mongodb';
-import { get, set } from 'lodash';
+import { MongoClient, MongoError, MongoClientOptions, InsertOneWriteOpResult, UpdateWriteOpResult, DeleteWriteOpResultObject } from 'mongodb';
 
 import eventHandler from '../../../event';
 
@@ -8,23 +7,23 @@ import IRepository from '../definition';
 class MongoRepository implements IRepository {
 
   public provider: string = 'MongoDB';
-  private isConnected: boolean = false;
-  private dbObj: MongoClient;
+  public isConnected: boolean = false;
+  private dbObj: MongoClient = new MongoClient(
+    process.env['REPOSITORY.MONGO.CONNSTR'] as string,
+    {
+      useUnifiedTopology: true,
+      useNewUrlParser: true
+    } as MongoClientOptions
+  );
 
-  constructor(connParams: object) {
-    set(connParams, 'options.useUnifiedTopology', true);
-    set(connParams, 'options.useNewUrlParser', true);
-    this.dbObj = new MongoClient(
-      get(connParams, 'connString') as string,
-      get(connParams, 'options') as MongoClientOptions
-    );
+  constructor() {
     this.dbObj.connect()
       .then(() => {
-        eventHandler.emit('repo-conn-s', this.provider, connParams);
+        eventHandler.emit('repo-conn-s', this.provider, process.env['REPOSITORY.MONGO.CONNSTR'] as string);
         this.isConnected = true;
       })
       .catch((error) => {
-        eventHandler.emit('repo-conn-f', this.provider, connParams, error);
+        eventHandler.emit('repo-conn-f', this.provider, process.env['REPOSITORY.MONGO.CONNSTR'] as string, error);
       });
   }
 

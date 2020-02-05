@@ -4,6 +4,8 @@ interface IRepository {
 
   provider: string;
 
+  isConnected: boolean;
+
   disconnect(): Promise<void>;
 
   insertOne(schema: string, data: object): Promise<void>;

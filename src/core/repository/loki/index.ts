@@ -8,12 +8,11 @@ import IRepository from '../definition';
 class LokiRepository implements IRepository {
 
   public provider: string = 'LokiDB';
-  private isConnected: boolean = false;
-  private dbObj: any;
+  public isConnected: boolean = false;
+  private dbObj: any = new loki(process.env['REPOSITORY.LOKI.DB'] as string, { adapter: new loki.LokiMemoryAdapter() });
 
-  constructor(connParams: object) {
-    this.dbObj = new loki(get(connParams, 'db') as string, { adapter: new loki.LokiMemoryAdapter() });
-    eventHandler.emit('repo-conn-s', this.provider, connParams);
+  constructor() {
+    eventHandler.emit('repo-conn-s', this.provider, { db: process.env['REPOSITORY.LOKI.DB'] as string });
     this.isConnected = true;
     eventHandler.emit('repo-warn', `${this.provider} repository is a very unsafe database, use for development only!`);
     eventHandler.emit('repo-warn', `All CRUD operations will be lost on every restart`);
@@ -23,6 +22,7 @@ class LokiRepository implements IRepository {
     return new Promise((resolve, reject) => {
       if (this.isConnected) {
         this.dbObj.deleteDatabase();
+        eventHandler.emit('repo-disconn-s', this.provider);
         resolve();
       } else {
         eventHandler.emit('repo-disconn-f', this.provider, 'Connection was not established');
