@@ -34,7 +34,7 @@ export default class SaleController implements ISaleService {
         this.service.create(sale)
           .then((success: StandardSuccess) => resolve(new ControllerSuccess(success.description)))
           .catch((error: StandardError) => reject(new ControllerError(error.description)));
-      } catch (err) { reject(err); }
+      } catch (err) { reject(reject(new ControllerError('Either User or Product does not exist'))); }
     });
   }
 
