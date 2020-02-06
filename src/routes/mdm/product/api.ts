@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
-import { myContainer } from '../../../di/di-config';
+import { container } from '../../../di';
 import { TYPES } from '../../../di/types';
 import IProductService from '../../../service/product';
 
@@ -8,7 +8,7 @@ import { StandardError, StandardSuccess } from '../../../entity/standard-operati
 import { PayloadError } from '../../../error-handler/definition';
 import { Product } from '../../../entity/product';
 
-const repo: IProductService = myContainer.get<IProductService>(TYPES.ProductController);
+const repo: IProductService = container.get<IProductService>(TYPES.ProductController);
 
 function create(req: Request, res: Response, next: NextFunction) {
   const product = new Product(req.body);

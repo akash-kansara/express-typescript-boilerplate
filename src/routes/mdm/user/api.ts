@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
-import { myContainer } from '../../../di/di-config';
+import { container } from '../../../di';
 import { TYPES } from '../../../di/types';
 import IUserService from '../../../service/user';
 
@@ -8,7 +8,7 @@ import { StandardError, StandardSuccess } from '../../../entity/standard-operati
 import { PayloadError } from '../../../error-handler/definition';
 import { User } from '../../../entity/user';
 
-const repo: IUserService = myContainer.get<IUserService>(TYPES.UserController);
+const repo: IUserService = container.get<IUserService>(TYPES.UserController);
 
 function create(req: Request, res: Response, next: NextFunction) {
   const user = new User(req.body);

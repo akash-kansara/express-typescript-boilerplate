@@ -1,7 +1,7 @@
 import { Server } from 'http';
 import { Request, Response, NextFunction } from 'express';
 
-import { myContainer } from '../di/di-config';
+import { container } from '../di';
 import { TYPES } from '../di/types';
 import IRepository from '../core/repository/definition';
 
@@ -13,7 +13,7 @@ import router from '../routes';
 import { APINotFoundError } from '../error-handler/definition';
 import errorHandler from '../error-handler';
 
-let repository: IRepository = myContainer.get<IRepository>(TYPES.IRepository);
+let repository: IRepository = container.get<IRepository>(TYPES.IRepository);
 
 function init(app: any, cb: (error: any) => void): void {
   const promises: Array<Promise<any>> = [];
