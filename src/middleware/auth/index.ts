@@ -23,7 +23,7 @@ function authenticate(req: Request, res: Response, next: NextFunction) {
 
 function authorize(req: Request, res: Response, next: NextFunction) {
   const token = req.get('bearer') || '';
-  oAuth2Controller.validate(token, process.env['APP.SECURITY.ACCESS_TOKEN_SECRET'] || '')
+  oAuth2Controller.validateAccessToken(token)
     .then((user: string | object) => {
       set(req, 'user', user);
       next();

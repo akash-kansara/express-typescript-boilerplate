@@ -47,7 +47,7 @@ export default class JwtController implements IOAuth2 {
       try {
         const queryToken = await this.repository.readOne(tokenSchema, { refreshToken });
         if (queryToken) {
-          this.validate(refreshToken, process.env['APP.SECURITY.REFRESH_TOKEN_SECRET'] || '')
+          this.validateRefreshToken(refreshToken)
             .then((user: object) => this.generate(user))
             .then((token: TokenError | Token) => {
               resolve(token);
@@ -63,18 +63,28 @@ export default class JwtController implements IOAuth2 {
     });
   }
 
-  public async validate(token: string, secretKey: string) {
+  public async validateAccessToken(token: string) {
     return new Promise<TokenError | object>(async (resolve, reject) => {
-      verify(
-        token,
-        secretKey,
-        (err, user) => {
-          if (err) {
-            reject(new TokenError('Inavlid / Expired token!'));
-          } else {
-            resolve({ username: get(user, 'username') });
-          }
+      verify(token, process.env['APP.SECURITY.ACCESS_TOKEN_SECRET'] || '', (err, user) => {
+        if (err) {
+          reject(new TokenError('Inavlid / Expired token!'));
+        } else {
+          resolve({ username: get(user, 'username') });
         }
+      }
+      );
+    });
+  }
+
+  public async validateRefreshToken(token: string) {
+    return new Promise<TokenError | object>(async (resolve, reject) => {
+      verify(token, process.env['APP.SECURITY.REFRESH_TOKEN_SECRET'] || '', (err, user) => {
+        if (err) {
+          reject(new TokenError('Inavlid / Expired token!'));
+        } else {
+          resolve({ username: get(user, 'username') });
+        }
+      }
       );
     });
   }
