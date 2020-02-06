@@ -1,6 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import helmet from 'helmet';
 import { RateLimiterMemory, RateLimiterRes } from 'rate-limiter-flexible';
+import { TOO_MANY_REQUESTS } from 'http-status-codes';
 
 import { APIError } from '../../error-handler/definition';
 
@@ -18,7 +19,7 @@ router.use((req: Request, res: Response, next: NextFunction) => {
   rateLimiter.consume(req.ip)
     .then(() => { next(); })
     .catch((result: RateLimiterRes) => {
-      next(new APIError(429, undefined, undefined, 'Too many requests!'));
+      next(new APIError(TOO_MANY_REQUESTS, undefined, undefined, 'Too many requests!'));
     });
 });
 

@@ -1,3 +1,5 @@
+import { BAD_REQUEST, FORBIDDEN, NOT_FOUND, UNAUTHORIZED } from 'http-status-codes';
+
 import { StandardError } from '../entity/standard-operation';
 
 export class APIError extends StandardError {
@@ -23,24 +25,24 @@ export class APIError extends StandardError {
 
 export class APINotFoundError extends APIError {
   constructor() {
-    super(404, undefined, undefined, undefined, 'No such method');
+    super(NOT_FOUND, undefined, undefined, undefined, 'No such method');
   }
 }
 
 export class AuthenticationError extends APIError {
   constructor(message?: string | undefined) {
-    super(401, 'S_AUTHCN_F', 'Authentication failure', 'Bad credentials received', message);
+    super(UNAUTHORIZED, 'S_AUTHCN_F', 'Authentication failure', 'Bad credentials received', message);
   }
 }
 
 export class AuthorizationError extends APIError {
   constructor(message?: string | undefined) {
-    super(401, 'S_AUTHZN_F', 'Authorization failure', 'Incorrect authorization received', message);
+    super(FORBIDDEN, 'S_AUTHZN_F', 'Authorization failure', 'Incorrect authorization received', message);
   }
 }
 
 export class PayloadError extends APIError {
   constructor(message: string) {
-    super(400, 'S_PYLD_F', 'Bad payload', 'Incorrect details received', message);
+    super(BAD_REQUEST, 'S_PYLD_F', 'Bad payload', 'Incorrect details received', message);
   }
 }
