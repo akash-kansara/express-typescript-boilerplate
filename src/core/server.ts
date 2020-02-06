@@ -37,7 +37,7 @@ function init(app: any, cb: (error: any) => void): void {
 async function closeApp(server: Server): Promise<void> {
 
   try { await repository.disconnect(); } catch (err) { }
-  try { await server.close(); } catch (err) { }
+  try { server.close(); } catch (err) { }
   eventHandler.emit('sys-info', 'Shutting down app.');
   process.exit(0);
 

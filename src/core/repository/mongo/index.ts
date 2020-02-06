@@ -39,8 +39,8 @@ class MongoRepository implements IRepository {
           resolve();
         });
       } else {
-        eventHandler.emit('repo-disconn-f', this.provider, 'Connection was not established');
         reject();
+        eventHandler.emit('repo-disconn-f', this.provider, 'Connection was not established');
       }
     });
   }
@@ -53,6 +53,7 @@ class MongoRepository implements IRepository {
           .then((result: InsertOneWriteOpResult<any>) => {
             if (result.insertedCount === 1) { resolve(); }
             else {
+              reject();
               eventHandler.emit(
                 'repo-op-f',
                 this.provider,
@@ -60,10 +61,10 @@ class MongoRepository implements IRepository {
                 data,
                 `Insert count was  ${result.insertedCount}`
               );
-              reject();
             }
           })
           .catch((error: MongoError) => {
+            reject();
             eventHandler.emit(
               'repo-op-f',
               this.provider,
@@ -71,9 +72,9 @@ class MongoRepository implements IRepository {
               data,
               error
             );
-            reject();
           });
       } else {
+        reject();
         eventHandler.emit(
           'repo-op-f',
           this.provider,
@@ -81,7 +82,6 @@ class MongoRepository implements IRepository {
           data,
           'Connection was not established'
         );
-        reject();
       }
     });
   }
@@ -94,6 +94,7 @@ class MongoRepository implements IRepository {
           .then((result: UpdateWriteOpResult) => {
             if (result.upsertedCount === 1) { resolve(); }
             else {
+              reject();
               eventHandler.emit(
                 'repo-op-f',
                 this.provider,
@@ -101,10 +102,10 @@ class MongoRepository implements IRepository {
                 data,
                 `Upserted count was  ${result.upsertedCount}`
               );
-              reject();
             }
           })
           .catch((error: MongoError) => {
+            reject();
             eventHandler.emit(
               'repo-op-f',
               this.provider,
@@ -112,9 +113,9 @@ class MongoRepository implements IRepository {
               data,
               error
             );
-            reject();
           });
       } else {
+        reject();
         eventHandler.emit(
           'repo-op-f',
           this.provider,
@@ -122,7 +123,6 @@ class MongoRepository implements IRepository {
           data,
           'Connection was not established'
         );
-        reject();
       }
     });
   }
@@ -136,6 +136,7 @@ class MongoRepository implements IRepository {
             resolve(result);
           })
           .catch((error: MongoError) => {
+            reject();
             eventHandler.emit(
               'repo-op-f',
               this.provider,
@@ -143,9 +144,9 @@ class MongoRepository implements IRepository {
               filter,
               error
             );
-            reject();
           });
       } else {
+        reject();
         eventHandler.emit(
           'repo-op-f',
           this.provider,
@@ -153,7 +154,6 @@ class MongoRepository implements IRepository {
           filter,
           'Connection was not established'
         );
-        reject();
       }
     });
   }
@@ -167,6 +167,7 @@ class MongoRepository implements IRepository {
             resolve(result);
           })
           .catch((error: MongoError) => {
+            reject();
             eventHandler.emit(
               'repo-op-f',
               this.provider,
@@ -174,9 +175,9 @@ class MongoRepository implements IRepository {
               filter,
               error
             );
-            reject();
           });
       } else {
+        reject();
         eventHandler.emit(
           'repo-op-f',
           this.provider,
@@ -184,7 +185,6 @@ class MongoRepository implements IRepository {
           filter,
           'Connection was not established'
         );
-        reject();
       }
     });
   }
@@ -197,6 +197,7 @@ class MongoRepository implements IRepository {
           .then((result: DeleteWriteOpResultObject) => {
             if (result.deletedCount === 1) { resolve(); }
             else {
+              reject();
               eventHandler.emit(
                 'repo-op-f',
                 this.provider,
@@ -204,10 +205,10 @@ class MongoRepository implements IRepository {
                 filter,
                 `Deleted count was  ${result.deletedCount}`
               );
-              reject();
             }
           })
           .catch((error: MongoError) => {
+            reject();
             eventHandler.emit(
               'repo-op-f',
               this.provider,
@@ -215,9 +216,9 @@ class MongoRepository implements IRepository {
               filter,
               error
             );
-            reject();
           });
       } else {
+        reject();
         eventHandler.emit(
           'repo-op-f',
           this.provider,
@@ -225,7 +226,6 @@ class MongoRepository implements IRepository {
           filter,
           'Connection was not established'
         );
-        reject();
       }
     });
   }
@@ -239,6 +239,7 @@ class MongoRepository implements IRepository {
             else { resolve(); }
           })
           .catch(() => {
+            reject();
             eventHandler.emit(
               'repo-op-f',
               this.provider,
@@ -246,9 +247,9 @@ class MongoRepository implements IRepository {
               filter,
               'Failed while reading record'
             );
-            reject();
           });
       } else {
+        reject();
         eventHandler.emit(
           'repo-op-f',
           this.provider,
@@ -256,7 +257,6 @@ class MongoRepository implements IRepository {
           filter,
           'Connection was not established'
         );
-        reject();
       }
     });
   }
@@ -270,6 +270,7 @@ class MongoRepository implements IRepository {
             else { reject(); }
           })
           .catch(() => {
+            reject();
             eventHandler.emit(
               'repo-op-f',
               this.provider,
@@ -277,17 +278,16 @@ class MongoRepository implements IRepository {
               filter,
               'Failed while reading record'
             );
-            reject();
           });
       } else {
+        reject();
         eventHandler.emit(
           'repo-op-f',
           this.provider,
-          'Check if exists',
+          'Check if not exists',
           filter,
           'Connection was not established'
         );
-        reject();
       }
     });
   }

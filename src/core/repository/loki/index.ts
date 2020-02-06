@@ -28,8 +28,8 @@ class LokiRepository implements IRepository {
         eventHandler.emit('repo-disconn-s', this.provider);
         resolve();
       } else {
-        eventHandler.emit('repo-disconn-f', this.provider, 'Connection was not established');
         reject();
+        eventHandler.emit('repo-disconn-f', this.provider, 'Connection was not established');
       }
     });
   }
@@ -42,6 +42,7 @@ class LokiRepository implements IRepository {
         collection.insert(data);
         resolve();
       } else {
+        reject();
         eventHandler.emit(
           'repo-op-f',
           this.provider,
@@ -49,7 +50,6 @@ class LokiRepository implements IRepository {
           data,
           'Connection was not established'
         );
-        reject();
       }
     });
   }
@@ -67,6 +67,7 @@ class LokiRepository implements IRepository {
           resolve();
         }
       } else {
+        reject();
         eventHandler.emit(
           'repo-op-f',
           this.provider,
@@ -74,7 +75,6 @@ class LokiRepository implements IRepository {
           data,
           'Connection was not established'
         );
-        reject();
       }
     });
   }
@@ -89,6 +89,7 @@ class LokiRepository implements IRepository {
           resolve(result);
         }
       } else {
+        reject();
         eventHandler.emit(
           'repo-op-f',
           this.provider,
@@ -96,7 +97,6 @@ class LokiRepository implements IRepository {
           filter,
           'Connection was not established'
         );
-        reject();
       }
     });
   }
@@ -111,6 +111,7 @@ class LokiRepository implements IRepository {
           resolve(result);
         }
       } else {
+        reject();
         eventHandler.emit(
           'repo-op-f',
           this.provider,
@@ -118,7 +119,6 @@ class LokiRepository implements IRepository {
           filter,
           'Connection was not established'
         );
-        reject();
       }
     });
   }
@@ -134,6 +134,7 @@ class LokiRepository implements IRepository {
           resolve();
         }
       } else {
+        reject();
         eventHandler.emit(
           'repo-op-f',
           this.provider,
@@ -141,7 +142,6 @@ class LokiRepository implements IRepository {
           filter,
           'Connection was not established'
         );
-        reject();
       }
     });
   }
@@ -155,6 +155,7 @@ class LokiRepository implements IRepository {
             else { resolve(); }
           })
           .catch(() => {
+            reject();
             eventHandler.emit(
               'repo-op-f',
               this.provider,
@@ -162,9 +163,9 @@ class LokiRepository implements IRepository {
               filter,
               'Failed while reading record'
             );
-            reject();
           });
       } else {
+        reject();
         eventHandler.emit(
           'repo-op-f',
           this.provider,
@@ -172,7 +173,6 @@ class LokiRepository implements IRepository {
           filter,
           'Connection was not established'
         );
-        reject();
       }
     });
   }
@@ -186,6 +186,7 @@ class LokiRepository implements IRepository {
             else { reject(); }
           })
           .catch(() => {
+            reject();
             eventHandler.emit(
               'repo-op-f',
               this.provider,
@@ -193,17 +194,16 @@ class LokiRepository implements IRepository {
               filter,
               'Failed while reading record'
             );
-            reject();
           });
       } else {
+        reject();
         eventHandler.emit(
           'repo-op-f',
           this.provider,
-          'Check if exists',
+          'Check if not exists',
           filter,
           'Connection was not established'
         );
-        reject();
       }
     });
   }
