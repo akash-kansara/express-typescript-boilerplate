@@ -1,14 +1,21 @@
+import 'reflect-metadata';
+import { injectable, inject } from 'inversify';
+import { TYPES } from '../../di/types';
+import IUserService from '../../service/user';
+
 import { StandardError, StandardSuccess } from '../../entity/standard-operation';
 import { ControllerError, ControllerSuccess } from '../../core/controller/definition';
 import { User } from '../../entity/user';
 
-import IUserService from '../../service/user';
-
-import UserRepo from '../../repository/user';
-
+@injectable()
 export default class UserController implements IUserService {
 
-  private service: IUserService = new UserRepo();
+  private service: IUserService;
+  constructor(
+    @inject(TYPES.UserRepo) service: IUserService
+  ) {
+    this.service = service;
+  }
 
   public async create(user: User) {
     return new Promise<StandardError | StandardSuccess>(async (resolve, reject) => {

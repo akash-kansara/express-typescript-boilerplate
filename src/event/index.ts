@@ -1,4 +1,4 @@
-import EventEmitter from 'events';
+import { EventEmitter } from 'events';
 
 import * as sysLog from './sys-log';
 import * as repoLog from './repo-log';

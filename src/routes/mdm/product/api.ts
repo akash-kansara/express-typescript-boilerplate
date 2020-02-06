@@ -1,13 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
 
+import { myContainer } from '../../../di/di-config';
+import { TYPES } from '../../../di/types';
+import IProductService from '../../../service/product';
+
 import { StandardError, StandardSuccess } from '../../../entity/standard-operation';
 import { PayloadError } from '../../../error-handler/definition';
 import { Product } from '../../../entity/product';
 
-import IProductService from '../../../service/product';
-import ProductController from '../../../controller/product';
-
-const repo: IProductService = new ProductController();
+const repo: IProductService = myContainer.get<IProductService>(TYPES.ProductController);
 
 function create(req: Request, res: Response, next: NextFunction) {
   const product = new Product(req.body);

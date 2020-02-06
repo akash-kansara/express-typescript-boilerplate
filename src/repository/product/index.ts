@@ -1,17 +1,28 @@
 import { omit } from 'lodash';
 
+import 'reflect-metadata';
+import { injectable, inject } from 'inversify';
+import { TYPES } from '../../di/types';
+import IRepository from '../../core/repository/definition';
+
 import { Product } from '../../entity/product';
 import { RepoError, RepoSuccess } from '../../core/repository/definition';
 
-import repository from '../../core/repository';
-
 import IProductService from '../../service/product';
 
+@injectable()
 export default class ProductRepo implements IProductService {
+
+  private repository: IRepository;
+  constructor(
+    @inject(TYPES.IRepository) repository: IRepository
+  ) {
+    this.repository = repository;
+  }
 
   public create(product: Product) {
     return new Promise<RepoError | RepoSuccess>((resolve, reject) => {
-      repository.insertOne('product_mst', product)
+      this.repository.insertOne('product_mst', product)
         .then(() => resolve(new RepoSuccess('Product Created!')))
         .catch(() => reject(new RepoError('Failed to create product')));
     });
@@ -19,7 +30,7 @@ export default class ProductRepo implements IProductService {
 
   public fetch() {
     return new Promise<RepoError | Product[]>((resolve, reject) => {
-      repository.readMany('product_mst', {})
+      this.repository.readMany('product_mst', {})
         .then((arr: void | object[]) => {
           const products: Product[] = [];
           if (!Array.isArray(arr)) { arr = []; }
@@ -35,7 +46,7 @@ export default class ProductRepo implements IProductService {
 
   public fetchOne(code: string) {
     return new Promise<RepoError | Product>((resolve, reject) => {
-      repository.readOne('product_mst', { code })
+      this.repository.readOne('product_mst', { code })
         .then((product: void | object) => {
           if (typeof product !== 'object') { product = {} as object; }
           omit(product, '_id');
@@ -47,7 +58,7 @@ export default class ProductRepo implements IProductService {
 
   public update(product: Product) {
     return new Promise<RepoError | RepoSuccess>((resolve, reject) => {
-      repository.updateOne('product_mst', { code: product.code }, product)
+      this.repository.updateOne('product_mst', { code: product.code }, product)
         .then(() => resolve(new RepoSuccess('Product Updated!')))
         .catch(() => reject(new RepoError('Failed to update product')));
     });
@@ -55,7 +66,7 @@ export default class ProductRepo implements IProductService {
 
   public checkIfExists(code: string) {
     return new Promise<void>((resolve, reject) => {
-      repository.checkIfExists('product_mst', { code })
+      this.repository.checkIfExists('product_mst', { code })
         .then(() => resolve())
         .catch(() => reject());
     });
@@ -63,7 +74,7 @@ export default class ProductRepo implements IProductService {
 
   public checkIfNotExists(code: string) {
     return new Promise<void>((resolve, reject) => {
-      repository.checkIfNotExists('product_mst', { code })
+      this.repository.checkIfNotExists('product_mst', { code })
         .then(() => resolve())
         .catch(() => reject());
     });

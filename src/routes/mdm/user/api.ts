@@ -1,13 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
 
+import { myContainer } from '../../../di/di-config';
+import { TYPES } from '../../../di/types';
+import IUserService from '../../../service/user';
+
 import { StandardError, StandardSuccess } from '../../../entity/standard-operation';
 import { PayloadError } from '../../../error-handler/definition';
 import { User } from '../../../entity/user';
 
-import IUserService from '../../../service/user';
-import UserController from '../../../controller/user';
-
-const repo: IUserService = new UserController();
+const repo: IUserService = myContainer.get<IUserService>(TYPES.UserController);
 
 function create(req: Request, res: Response, next: NextFunction) {
   const user = new User(req.body);

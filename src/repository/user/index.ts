@@ -1,17 +1,28 @@
 import { omit } from 'lodash';
 
+import 'reflect-metadata';
+import { injectable, inject } from 'inversify';
+import { TYPES } from '../../di/types';
+import IRepository from '../../core/repository/definition';
+
 import { User } from '../../entity/user';
 import { RepoError, RepoSuccess } from '../../core/repository/definition';
 
-import repository from '../../core/repository';
-
 import IUserService from '../../service/user';
 
+@injectable()
 export default class UserRepo implements IUserService {
+
+  private repository: IRepository;
+  constructor(
+    @inject(TYPES.IRepository) repository: IRepository
+  ) {
+    this.repository = repository;
+  }
 
   public create(user: User) {
     return new Promise<RepoError | RepoSuccess>((resolve, reject) => {
-      repository.insertOne('user_mst', user)
+      this.repository.insertOne('user_mst', user)
         .then(() => resolve(new RepoSuccess('User Created!')))
         .catch(() => reject(new RepoError('Failed to create user')));
     });
@@ -19,7 +30,7 @@ export default class UserRepo implements IUserService {
 
   public fetch() {
     return new Promise<RepoError | User[]>((resolve, reject) => {
-      repository.readMany('user_mst', {})
+      this.repository.readMany('user_mst', {})
         .then((arr: void | object[]) => {
           const users: User[] = [];
           if (!Array.isArray(arr)) { arr = []; }
@@ -35,7 +46,7 @@ export default class UserRepo implements IUserService {
 
   public fetchOne(email: string) {
     return new Promise<RepoError | User>((resolve, reject) => {
-      repository.readOne('user_mst', { email })
+      this.repository.readOne('user_mst', { email })
         .then((user: void | object) => {
           if (typeof user !== 'object') { user = {} as object; }
           omit(user, '_id');
@@ -47,7 +58,7 @@ export default class UserRepo implements IUserService {
 
   public update(user: User) {
     return new Promise<RepoError | RepoSuccess>((resolve, reject) => {
-      repository.updateOne('user_mst', { email: user.email }, user)
+      this.repository.updateOne('user_mst', { email: user.email }, user)
         .then(() => resolve(new RepoSuccess('User Updated!')))
         .catch(() => reject(new RepoError('Failed to update user')));
     });
@@ -55,7 +66,7 @@ export default class UserRepo implements IUserService {
 
   public checkIfExists(email: string) {
     return new Promise<void>((resolve, reject) => {
-      repository.checkIfExists('user_mst', { email })
+      this.repository.checkIfExists('user_mst', { email })
         .then(() => resolve())
         .catch(() => reject());
     });
@@ -63,7 +74,7 @@ export default class UserRepo implements IUserService {
 
   public checkIfNotExists(email: string) {
     return new Promise<void>((resolve, reject) => {
-      repository.checkIfNotExists('user_mst', { email } as object)
+      this.repository.checkIfNotExists('user_mst', { email } as object)
         .then(() => resolve())
         .catch(() => reject());
     });

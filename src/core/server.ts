@@ -1,6 +1,10 @@
 import { Server } from 'http';
 import { Request, Response, NextFunction } from 'express';
 
+import { myContainer } from '../di/di-config';
+import { TYPES } from '../di/types';
+import IRepository from '../core/repository/definition';
+
 import eventHandler from '../event';
 
 import swaggerRoute from '../swagger';
@@ -8,7 +12,8 @@ import middleware from '../middleware';
 import router from '../routes';
 import { APINotFoundError } from '../error-handler/definition';
 import errorHandler from '../error-handler';
-import repo from './repository';
+
+let repository: IRepository = myContainer.get<IRepository>(TYPES.IRepository);
 
 function init(app: any, cb: (error: any) => void): void {
   const promises: Array<Promise<any>> = [];
@@ -31,7 +36,7 @@ function init(app: any, cb: (error: any) => void): void {
 
 async function closeApp(server: Server): Promise<void> {
 
-  try { await repo.disconnect(); } catch (err) { }
+  try { await repository.disconnect(); } catch (err) { }
   try { await server.close(); } catch (err) { }
   eventHandler.emit('sys-info', 'Shutting down app.');
   process.exit(0);

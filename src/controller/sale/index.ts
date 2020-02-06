@@ -1,19 +1,30 @@
+import 'reflect-metadata';
+import { injectable, inject } from 'inversify';
+import { TYPES } from '../../di/types';
+import ISaleService from '../../service/sale';
+import IUserService from '../../service/user';
+import IProductService from '../../service/product';
+
 import { StandardError, StandardSuccess } from '../../entity/standard-operation';
 import { ControllerError, ControllerSuccess } from '../../core/controller/definition';
 import { Sale } from '../../entity/sale';
 
-import ISaleService from '../../service/sale';
-import SaleRepo from '../../repository/sale';
-
-import UserService from '../user';
-import ProductService from '../product';
-
+@injectable()
 export default class SaleController implements ISaleService {
 
-  private service: ISaleService = new SaleRepo();
+  private service: ISaleService;
+  private userService: IUserService;
+  private productService: IProductService;
 
-  private userService = new UserService();
-  private productService = new ProductService();
+  constructor(
+    @inject(TYPES.SaleRepo) service: ISaleService,
+    @inject(TYPES.UserRepo) userService: IUserService,
+    @inject(TYPES.ProductRepo) productService: IProductService
+  ) {
+    this.service = service;
+    this.userService = userService;
+    this.productService = productService;
+  }
 
   public async create(sale: Sale) {
     return new Promise<StandardError | StandardSuccess>(async (resolve, reject) => {

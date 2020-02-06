@@ -1,13 +1,21 @@
+import 'reflect-metadata';
+import { injectable, inject } from 'inversify';
+import { TYPES } from '../../di/types';
+import IProductService from '../../service/product';
+
 import { StandardError, StandardSuccess } from '../../entity/standard-operation';
 import { ControllerError, ControllerSuccess } from '../../core/controller/definition';
 import { Product } from '../../entity/product';
 
-import IProductService from '../../service/product';
-import ProductRepo from '../../repository/product';
-
+@injectable()
 export default class ProductController implements IProductService {
 
-  private service: IProductService = new ProductRepo();
+  private service: IProductService;
+  constructor(
+    @inject(TYPES.ProductRepo) service: IProductService
+  ) {
+    this.service = service;
+  }
 
   public async create(product: Product) {
     return new Promise<StandardError | StandardSuccess>(async (resolve, reject) => {
