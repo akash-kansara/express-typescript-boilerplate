@@ -8,7 +8,7 @@ import { StandardError, StandardSuccess } from '../../../entity/standard-operati
 import { PayloadError } from '../../../error-handler/definition';
 import { Product } from '../../../entity/product';
 
-const repo: IProductService = container.get<IProductService>(TYPES.ProductController);
+const controller: IProductService = container.get<IProductService>(TYPES.ProductController);
 
 function create(req: Request, res: Response, next: NextFunction) {
   const product = new Product(req.body);
@@ -16,7 +16,7 @@ function create(req: Request, res: Response, next: NextFunction) {
   if (payloadErr.length > 0) {
     next(new PayloadError(payloadErr));
   } else {
-    repo.create(product)
+    controller.create(product)
       .then((success: StandardSuccess) => {
         res.send(success);
       })
@@ -27,7 +27,7 @@ function create(req: Request, res: Response, next: NextFunction) {
 }
 
 function fetch(req: Request, res: Response, next: NextFunction) {
-  repo.fetch()
+  controller.fetch()
     .then((products: StandardError | Product[]) => {
       if (!Array.isArray(products)) { products = []; }
       res.send(products);
@@ -43,7 +43,7 @@ function update(req: Request, res: Response, next: NextFunction) {
   if (payloadErr.length > 0) {
     next(new PayloadError(payloadErr));
   } else {
-    repo.update(product)
+    controller.update(product)
       .then((success: StandardSuccess) => {
         res.send(success);
       })

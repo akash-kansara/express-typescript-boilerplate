@@ -8,7 +8,7 @@ import { StandardError, StandardSuccess } from '../../entity/standard-operation'
 import { PayloadError } from '../../error-handler/definition';
 import { Sale } from '../../entity/sale';
 
-const repo: ISaleService = container.get<ISaleService>(TYPES.SaleController);
+const controller: ISaleService = container.get<ISaleService>(TYPES.SaleController);
 
 function create(req: Request, res: Response, next: NextFunction) {
   const sale = new Sale(req.body);
@@ -16,7 +16,7 @@ function create(req: Request, res: Response, next: NextFunction) {
   if (payloadErr.length > 0) {
     next(new PayloadError(payloadErr));
   } else {
-    repo.create(sale)
+    controller.create(sale)
       .then((success: StandardSuccess) => {
         res.send(success);
       })
@@ -27,7 +27,7 @@ function create(req: Request, res: Response, next: NextFunction) {
 }
 
 function fetch(req: Request, res: Response, next: NextFunction) {
-  repo.fetch()
+  controller.fetch()
     .then((sales: StandardError | Sale[]) => {
       if (!Array.isArray(sales)) { sales = []; }
       res.send(sales);

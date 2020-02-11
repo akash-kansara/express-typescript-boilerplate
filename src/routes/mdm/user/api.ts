@@ -8,7 +8,7 @@ import { StandardError, StandardSuccess } from '../../../entity/standard-operati
 import { PayloadError } from '../../../error-handler/definition';
 import { User } from '../../../entity/user';
 
-const repo: IUserService = container.get<IUserService>(TYPES.UserController);
+const controller: IUserService = container.get<IUserService>(TYPES.UserController);
 
 function create(req: Request, res: Response, next: NextFunction) {
   const user = new User(req.body);
@@ -16,7 +16,7 @@ function create(req: Request, res: Response, next: NextFunction) {
   if (payloadErr.length > 0) {
     next(new PayloadError(payloadErr));
   } else {
-    repo.create(user)
+    controller.create(user)
       .then((success: StandardSuccess) => {
         res.send(success);
       })
@@ -27,7 +27,7 @@ function create(req: Request, res: Response, next: NextFunction) {
 }
 
 function fetch(req: Request, res: Response, next: NextFunction) {
-  repo.fetch()
+  controller.fetch()
     .then((users: StandardError | User[]) => {
       if (!Array.isArray(users)) { users = []; }
       res.send(users);
@@ -44,7 +44,7 @@ function update(req: Request, res: Response, next: NextFunction) {
     next(new PayloadError(payloadErr));
   } else {
     const user = new User(req.body);
-    repo.update(user)
+    controller.update(user)
       .then((success: StandardSuccess) => {
         res.send(success);
       })
