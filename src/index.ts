@@ -14,7 +14,6 @@ import securityRouter from './middleware/security';
 const app = express();
 
 app.use(securityRouter);
-app.disable('x-powered-by'); // TODO: Doesn't work. Check online later!
 
 let server: Server;
 
