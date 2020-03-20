@@ -1,4 +1,4 @@
-import { IsString, IsNumber, validateSync, ValidationError, Min } from 'class-validator';
+import { IsString, IsInt, validateSync, ValidationError, Min } from 'class-validator';
 import { get } from 'lodash';
 
 import { combineValidationError } from '../../core/entity';
@@ -17,7 +17,7 @@ export class Sale implements ISale {
   @IsString()
   public user_email: string;
 
-  @IsNumber()
+  @IsInt()
   @Min(1)
   public quantity: number;
 
