@@ -6,7 +6,7 @@
     "lint": "tslint --project \"tsconfig.json\"",
     "start": "node ./dist --NODE_ENV prod",
     "start:dev": "nodemon --config nodemon.json",
-    "test": "ts-mocha test/mdm/user/test.ts --timeout=15000 --exit"
+    "test": "ts-mocha test/test.ts --timeout=15000 --exit"
   },
   "dependencies": {
     "basic-auth": "^2.0.1",
