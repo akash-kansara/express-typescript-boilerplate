@@ -1,33 +1,39 @@
 import dotenv from 'dotenv';
 import commandLineArgs from 'command-line-args';
 import { join } from 'path';
-import { get } from 'lodash';
+import { get, unset } from 'lodash';
 
 let cliArgs = {};
 
-try {
-
-  cliArgs = commandLineArgs([
-    {
-      name: 'NODE_ENV',
-      alias: 'e',
-      defaultValue: 'dev',
-      type: String
-    },
-    {
-      name: 'port',
-      alias: 'p',
-      type: Number
-    },
-    {
-      name: 'repository',
-      alias: 'r',
-      type: String
-    }
-  ], { partial: true });
-} catch (err) { throw err; }
+// Make sure command line args have same name as maintained in .env files
+cliArgs = commandLineArgs([
+  {
+    name: 'NODE_ENV',
+    alias: 'e',
+    defaultValue: 'dev',
+    type: String
+  },
+  {
+    name: 'APP.PORT',
+    alias: 'p',
+    type: Number
+  },
+  {
+    name: 'REPOSITORY.DEFAULT',
+    alias: 'r',
+    type: String
+  }
+],
+  { partial: true }
+);
 
 const result = dotenv.config({
   path: join(__dirname, '..', 'env', `${get(cliArgs, 'NODE_ENV')}.env`)
 });
+
+unset(cliArgs, '_unknown');
+Object.keys(cliArgs).forEach((e) => {
+  process.env[e] = get(cliArgs, e);
+});
+
 if (result.error) { throw result.error; }

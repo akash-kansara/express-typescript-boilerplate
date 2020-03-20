@@ -95,5 +95,4 @@ npm start
 1. Test cases to test API Controllers and Repositiory impentations
 2. Combine all test cases
 3. Pictorial Representation of Project Structure explanation
-4. Set CLI arguments as environment variables
 5. Fix Helmet, security issue
