@@ -93,4 +93,4 @@ npm start
 ```
 ## Upcoming changes
 1. Pictorial Representation of Project Structure explanation
-2. Fix Helmet, security issue
+2. Fix X-Powered-By issue

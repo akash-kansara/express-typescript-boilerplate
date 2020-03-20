@@ -416,10 +416,10 @@
     "Sale": {
       "type": "object",
       "properties": {
-        "product_code": {
+        "productCode": {
           "type": "string"
         },
-        "user_email": {
+        "userEmail": {
           "type": "string",
           "format": "email"
         },

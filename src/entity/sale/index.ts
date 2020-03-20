@@ -4,18 +4,18 @@ import { get } from 'lodash';
 import { combineValidationError } from '../../core/entity';
 
 export interface ISale {
-  product_code: string;
-  user_email: string;
+  productCode: string;
+  userEmail: string;
   quantity: number;
 }
 
 export class Sale implements ISale {
 
   @IsString()
-  public product_code: string;
+  public productCode: string;
 
   @IsString()
-  public user_email: string;
+  public userEmail: string;
 
   @IsInt()
   @Min(1)
@@ -25,8 +25,8 @@ export class Sale implements ISale {
   public validateErrMsg(): string { return combineValidationError(this); }
 
   constructor(obj: object) {
-    this.product_code = get(obj, 'product_code');
-    this.user_email = get(obj, 'user_email');
+    this.productCode = get(obj, 'productCode');
+    this.userEmail = get(obj, 'userEmail');
     this.quantity = get(obj, 'quantity');
   }
 

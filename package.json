@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "build": "node ./util/build.js",
-    "lint": "tslint --project \"tsconfig.json\"",
+    "lint": "tslint --project \"tsconfig.json\" --quiet",
     "start": "node ./dist --NODE_ENV prod",
     "start:dev": "nodemon --config nodemon.json",
     "test": "ts-mocha test/test.ts --timeout=15000 --exit"

@@ -43,7 +43,6 @@ function update(req: Request, res: Response, next: NextFunction) {
   if (payloadErr.length > 0) {
     next(new PayloadError(payloadErr));
   } else {
-    const user = new User(req.body);
     controller.update(user)
       .then((success: StandardSuccess) => {
         res.send(success);

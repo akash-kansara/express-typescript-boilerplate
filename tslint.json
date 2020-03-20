@@ -15,7 +15,21 @@
         "singleline": "never"
       }
     ],
-    "eofline": false
+    "eofline": false,
+    "no-console": false,
+    "no-string-literal": {
+      "severity": "warning"
+    },
+    "max-classes-per-file": {
+      "severity": "warning"
+    },
+    "one-line": {
+      "severity": "warning"
+    },
+    "no-empty": {
+      "severity": "warning"
+    },
+    "max-line-length": [false, 120]
   },
   "linterOptions": {
     "exclude": [

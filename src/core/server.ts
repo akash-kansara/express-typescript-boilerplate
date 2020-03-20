@@ -13,7 +13,7 @@ import router from '../routes';
 import { APINotFoundError } from '../error-handler/definition';
 import errorHandler from '../error-handler';
 
-let repository: IRepository = container.get<IRepository>(TYPES.IRepository);
+const repository: IRepository = container.get<IRepository>(TYPES.IRepository);
 
 function init(app: any, cb: (error: any) => void): void {
   const promises: Array<Promise<any>> = [];

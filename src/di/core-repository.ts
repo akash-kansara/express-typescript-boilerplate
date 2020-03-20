@@ -9,10 +9,10 @@ import IRepository from '../core/repository/definition';
 import LokiRepo from '../core/repository/loki';
 import MongoRepo from '../core/repository/mongo';
 // Entity imports end
- 
+
 const container = new Container();
 
-switch(process.env['REPOSITORY.DEFAULT']) {
+switch (process.env['REPOSITORY.DEFAULT']) {
   case 'MONGO':
     container.bind<IRepository>(TYPES.IRepository).to(MongoRepo).inSingletonScope();
     break;

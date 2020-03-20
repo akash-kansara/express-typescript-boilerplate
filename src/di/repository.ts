@@ -12,7 +12,7 @@ import UserRepo from '../repository/user';
 import ProductRepo from '../repository/product';
 import SaleRepo from '../repository/sale';
 // Entity imports end
- 
+
 const container = new Container();
 
 container.bind<IUserService>(TYPES.UserRepo).to(UserRepo).inSingletonScope();

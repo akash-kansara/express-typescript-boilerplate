@@ -29,8 +29,8 @@ export default class SaleController implements ISaleService {
   public async create(sale: Sale) {
     return new Promise<StandardError | StandardSuccess>(async (resolve, reject) => {
       try {
-        await this.userService.checkIfExists(sale.user_email);
-        await this.productService.checkIfExists(sale.product_code);
+        await this.userService.checkIfExists(sale.userEmail);
+        await this.productService.checkIfExists(sale.productCode);
         this.service.create(sale)
           .then((success: StandardSuccess) => resolve(new ControllerSuccess(success.description)))
           .catch((error: StandardError) => reject(new ControllerError(error.description)));

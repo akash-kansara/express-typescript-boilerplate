@@ -28,23 +28,23 @@ let tests = {
     price: 90
   },
   add: {
-    product_code: 'product.code',
-    user_email: 'sales.tester@example.com',
+    productCode: 'product.code',
+    userEmail: 'sales.tester@example.com',
     quantity: 50
   },
   badPayload: {
-    product_code: 'product.code',
-    user_email: 'sales.tester@example.com',
+    productCode: 'product.code',
+    userEmail: 'sales.tester@example.com',
     quantity: 50.78
   },
   logicFailOne: {
-    product_code: 'dfgdfghgdhfgdf',
-    user_email: 'sales.tester@example.com',
+    productCode: 'dfgdfghgdhfgdf',
+    userEmail: 'sales.tester@example.com',
     quantity: 50
   },
   logicFailTwo: {
-    product_code: 'product.code',
-    user_email: 'djashkjdhkjsakdhskajd@example.com',
+    productCode: 'product.code',
+    userEmail: 'djashkjdhkjsakdhskajd@example.com',
     quantity: 50
   }
 }
@@ -103,7 +103,7 @@ describe('Sale', () => {
           (res).should.have.status(200);
           (res.body).should.be.a('array');
           res.body = res.body.filter((e) => {
-            return e.product_code === tests.add.product_code && e.user_email === tests.add.user_email
+            return e.productCode === tests.add.productCode && e.userEmail === tests.add.userEmail
           });
           (res.body.length > 0).should.equal(true);
           done();

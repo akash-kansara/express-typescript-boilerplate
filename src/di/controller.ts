@@ -16,7 +16,7 @@ import UserController from '../controller/user';
 import ProductController from '../controller/product';
 import SaleController from '../controller/sale';
 // Entity imports end
- 
+
 const container = new Container();
 
 container.bind<IBasicAuth>(TYPES.BasicAuthController).to(BasicAuthController).inSingletonScope();
