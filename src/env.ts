@@ -5,7 +5,7 @@ import { get, unset } from 'lodash';
 
 let cliArgs = {};
 
-// Make sure command line args have same name as maintained in .env files
+// Make sure command line arguments have same name as maintained in .env files
 cliArgs = commandLineArgs([
   {
     name: 'NODE_ENV',
@@ -31,6 +31,7 @@ const result = dotenv.config({
   path: join(__dirname, '..', 'env', `${get(cliArgs, 'NODE_ENV')}.env`)
 });
 
+// Overwrite Environment arguments with CLI arguments if provided
 unset(cliArgs, '_unknown');
 Object.keys(cliArgs).forEach((e) => {
   process.env[e] = get(cliArgs, e);
