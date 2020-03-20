@@ -92,7 +92,5 @@ npm run build
 npm start
 ```
 ## Upcoming changes
-1. Test cases to test API Controllers and Repositiory impentations
-2. Combine all test cases
-3. Pictorial Representation of Project Structure explanation
-5. Fix Helmet, security issue
+1. Pictorial Representation of Project Structure explanation
+2. Fix Helmet, security issue
