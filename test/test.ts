@@ -20,6 +20,7 @@ describe('Tests', () => {
   importTest('User Module', './mdm/user/test.ts');
   importTest('Product Module', './mdm/product/test.ts');
   importTest('Sale Module', './sales/test.ts');
+  importTest('Extras', './extras/test.ts');
 
   after((done) => {
     done(); process.exit(0);
