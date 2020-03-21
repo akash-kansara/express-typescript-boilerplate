@@ -31,6 +31,12 @@ For rest of things such as DB implementation, Swagger, etc. refer [Project struc
 | src/swagger/ | [Swagger 2.0](https://swagger.io/docs/specification/2-0/basic-structure/) definition and API router |
 | src/index | Handles server initialization and startup |
 | test/ | Test scripts |
+| test/api/ | API tests |
+| test/di/ | Dependency injection configuration for controller and repository tests |
+| test/controller/ | Controller tests |
+| test/repository/ | Repository tests |
+| test/di/ | Dependency injection configuration for controller and repository tests |
+| test/rest/ | Tests using [REST client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client). Not required. Not executed during `npm test`. |
 | util/build.js | Utility to build project |
 | nodemon.json | [Nodemon](https://github.com/remy/nodemon) configuration |
 | package.json | Project dependencies |
