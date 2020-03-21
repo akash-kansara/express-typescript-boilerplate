@@ -1,15 +1,13 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+import { expect } from 'chai';
 import { get } from 'lodash';
 chai.use(chaiHttp);
-let should = chai.should();
 
 import server from '../../../src';
 
 // Uncomment below line(s) to run this test file individually
-// before((done) => {
-//   setTimeout(() => { done(); }, 3000);
-// });
+// after((done) => { done(); process.exit(0); });
 
 let username = 'root', password = 'root';
 
@@ -85,11 +83,11 @@ describe('Sale', () => {
         .set('Bearer', get(authRes.body, 'accessToken'))
         .send(tests.add)
         .end((err, res) => {
-          (res).should.have.status(200);
-          (res.body).should.have.property('statusCode');
-          (res.body).should.have.property('status');
-          (res.body).should.have.property('description');
-          (res.body.statusCode).should.equal('S_CTRL_S');
+          expect(res).to.have.status(200);
+          expect(res.body).to.have.property('statusCode');
+          expect(res.body).to.have.property('status');
+          expect(res.body).to.have.property('description');
+          expect(res.body.statusCode).to.equal('S_CTRL_S');
           done();
         });
     });
@@ -100,12 +98,12 @@ describe('Sale', () => {
         .get('/sales')
         .set('Bearer', get(authRes.body, 'accessToken'))
         .end((err, res) => {
-          (res).should.have.status(200);
-          (res.body).should.be.a('array');
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.a('array');
           res.body = res.body.filter((e) => {
             return e.productCode === tests.add.productCode && e.userEmail === tests.add.userEmail
           });
-          (res.body.length > 0).should.equal(true);
+          expect(res.body.length > 0).to.equal(true);
           done();
         });
     });
@@ -117,11 +115,11 @@ describe('Sale', () => {
         .set('Bearer', get(authRes.body, 'accessToken'))
         .send(tests.badPayload)
         .end((err, res) => {
-          (res).should.have.status(400);
-          (res.body).should.have.property('statusCode');
-          (res.body).should.have.property('status');
-          (res.body).should.have.property('description');
-          (res.body.statusCode).should.equal('S_PYLD_F');
+          expect(res).to.have.status(400);
+          expect(res.body).to.have.property('statusCode');
+          expect(res.body).to.have.property('status');
+          expect(res.body).to.have.property('description');
+          expect(res.body.statusCode).to.equal('S_PYLD_F');
           done();
         });
     });
@@ -133,11 +131,11 @@ describe('Sale', () => {
         .set('Bearer', get(authRes.body, 'accessToken'))
         .send(tests.logicFailOne)
         .end((err, res) => {
-          (res).should.have.status(500);
-          (res.body).should.have.property('statusCode');
-          (res.body).should.have.property('status');
-          (res.body).should.have.property('description');
-          (res.body.statusCode).should.equal('S_CTRL_F');
+          expect(res).to.have.status(500);
+          expect(res.body).to.have.property('statusCode');
+          expect(res.body).to.have.property('status');
+          expect(res.body).to.have.property('description');
+          expect(res.body.statusCode).to.equal('S_CTRL_F');
           done();
         });
     });
@@ -147,16 +145,13 @@ describe('Sale', () => {
         .set('Bearer', get(authRes.body, 'accessToken'))
         .send(tests.logicFailTwo)
         .end((err, res) => {
-          (res).should.have.status(500);
-          (res.body).should.have.property('statusCode');
-          (res.body).should.have.property('status');
-          (res.body).should.have.property('description');
-          (res.body.statusCode).should.equal('S_CTRL_F');
+          expect(res).to.have.status(500);
+          expect(res.body).to.have.property('statusCode');
+          expect(res.body).to.have.property('status');
+          expect(res.body).to.have.property('description');
+          expect(res.body.statusCode).to.equal('S_CTRL_F');
           done();
         });
     });
   });
 });
-
-// Uncomment below line(s) to run this test file individually
-// after((done) => { done(); process.exit(0); })

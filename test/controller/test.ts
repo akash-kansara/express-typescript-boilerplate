@@ -7,7 +7,5 @@ function importTest(name, path) {
 }
 
 describe('Controller tests', () => {
-
   importTest('BasicAuth controller', './basic-auth.ts');
-
 });

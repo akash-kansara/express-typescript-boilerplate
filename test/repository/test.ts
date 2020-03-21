@@ -7,7 +7,5 @@ function importTest(name, path) {
 }
 
 describe('Repository tests', () => {
-
   importTest('Product repository', './product.ts');
-
 });

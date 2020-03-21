@@ -1,14 +1,12 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+import { expect } from 'chai';
 chai.use(chaiHttp);
-let should = chai.should();
 
 import server from '../../../src';
 
 // Uncomment below line(s) to run this test file individually
-// before((done) => {
-//   setTimeout(() => { done(); }, 3000);
-// });
+// after((done) => { done(); process.exit(0); });
 
 describe('HTTP Failure codes', () => {
   it('it should respond with 404 status code', (done) => {
@@ -16,11 +14,11 @@ describe('HTTP Failure codes', () => {
       .post('/fhjhdkfhjkdkfdhk')
       .send({})
       .end((err, res) => {
-        (res).should.have.status(404);
-        (res.body).should.have.property('statusCode');
-        (res.body).should.have.property('status');
-        (res.body).should.have.property('description');
-        (res.body.statusCode).should.equal('S_API_F');
+        expect(res).to.have.status(404);
+        expect(res.body).to.have.property('statusCode');
+        expect(res.body).to.have.property('status');
+        expect(res.body).to.have.property('description');
+        expect(res.body.statusCode).to.equal('S_API_F');
         done();
       });
   });
@@ -29,15 +27,12 @@ describe('HTTP Failure codes', () => {
       .post('/mdm/product')
       .send({})
       .end((err, res) => {
-        (res).should.have.status(403);
-        (res.body).should.have.property('statusCode');
-        (res.body).should.have.property('status');
-        (res.body).should.have.property('description');
-        (res.body.statusCode).should.equal('S_AUTHZN_F');
+        expect(res).to.have.status(403);
+        expect(res.body).to.have.property('statusCode');
+        expect(res.body).to.have.property('status');
+        expect(res.body).to.have.property('description');
+        expect(res.body.statusCode).to.equal('S_AUTHZN_F');
         done();
       });
   });
 });
-
-// Uncomment below line(s) to run this test file individually
-// after((done) => { done(); process.exit(0); })

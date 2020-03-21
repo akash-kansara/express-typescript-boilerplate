@@ -1,15 +1,13 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+import { expect } from 'chai';
 import { get } from 'lodash';
 chai.use(chaiHttp);
-let should = chai.should();
 
 import server from '../../../../src';
 
 // Uncomment below line(s) to run this test file individually
-// before((done) => {
-//   setTimeout(() => { done(); }, 3000);
-// });
+// after((done) => { done(); process.exit(0); });
 
 let username = 'root', password = 'root';
 
@@ -50,11 +48,11 @@ describe('MDM - User', () => {
         .set('Bearer', get(authRes.body, 'accessToken'))
         .send(tests.add)
         .end((err, res) => {
-          (res).should.have.status(200);
-          (res.body).should.have.property('statusCode');
-          (res.body).should.have.property('status');
-          (res.body).should.have.property('description');
-          (res.body.statusCode).should.equal('S_CTRL_S');
+          expect(res).to.have.status(200);
+          expect(res.body).to.have.property('statusCode');
+          expect(res.body).to.have.property('status');
+          expect(res.body).to.have.property('description');
+          expect(res.body.statusCode).to.equal('S_CTRL_S');
           done();
         });
     });
@@ -65,11 +63,11 @@ describe('MDM - User', () => {
         .get('/mdm/user')
         .set('Bearer', get(authRes.body, 'accessToken'))
         .end((err, res) => {
-          (res).should.have.status(200);
-          (res.body).should.be.a('array');
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.a('array');
           res.body = res.body.filter(e => e.email === tests.add.email)[0];
-          (res.body.firstname).should.equal(tests.add.firstname);
-          (res.body.lastname).should.equal(tests.add.lastname);
+          expect(res.body.firstname).to.equal(tests.add.firstname);
+          expect(res.body.lastname).to.equal(tests.add.lastname);
           done();
         });
     });
@@ -81,11 +79,11 @@ describe('MDM - User', () => {
         .set('Bearer', get(authRes.body, 'accessToken'))
         .send(tests.update)
         .end((err, res) => {
-          (res).should.have.status(200);
-          (res.body).should.have.property('statusCode');
-          (res.body).should.have.property('status');
-          (res.body).should.have.property('description');
-          (res.body.statusCode).should.equal('S_CTRL_S');
+          expect(res).to.have.status(200);
+          expect(res.body).to.have.property('statusCode');
+          expect(res.body).to.have.property('status');
+          expect(res.body).to.have.property('description');
+          expect(res.body.statusCode).to.equal('S_CTRL_S');
           done();
         });
     });
@@ -96,11 +94,11 @@ describe('MDM - User', () => {
         .get('/mdm/user')
         .set('Bearer', get(authRes.body, 'accessToken'))
         .end((err, res) => {
-          (res).should.have.status(200);
-          (res.body).should.be.a('array');
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.a('array');
           res.body = res.body.filter(e => e.email === tests.update.email)[0];
-          (res.body.firstname).should.equal(tests.update.firstname);
-          (res.body.lastname).should.equal(tests.update.lastname);
+          expect(res.body.firstname).to.equal(tests.update.firstname);
+          expect(res.body.lastname).to.equal(tests.update.lastname);
           done();
         });
     });
@@ -112,16 +110,13 @@ describe('MDM - User', () => {
         .set('Bearer', get(authRes.body, 'accessToken'))
         .send(tests.badPayload)
         .end((err, res) => {
-          (res).should.have.status(400);
-          (res.body).should.have.property('statusCode');
-          (res.body).should.have.property('status');
-          (res.body).should.have.property('description');
-          (res.body.statusCode).should.equal('S_PYLD_F');
+          expect(res).to.have.status(400);
+          expect(res.body).to.have.property('statusCode');
+          expect(res.body).to.have.property('status');
+          expect(res.body).to.have.property('description');
+          expect(res.body.statusCode).to.equal('S_PYLD_F');
           done();
         });
     });
   });
 });
-
-// Uncomment below line(s) to run this test file individually
-// after((done) => { done(); process.exit(0); })

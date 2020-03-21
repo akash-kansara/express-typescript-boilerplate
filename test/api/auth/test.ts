@@ -1,14 +1,12 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+import { expect } from 'chai';
 chai.use(chaiHttp);
-let should = chai.should();
 
 import server from '../../../src';
 
 // Uncomment below line(s) to run this test file individually
-// before((done) => {
-//   setTimeout(() => { done(); }, 3000);
-// });
+// after((done) => { done(); process.exit(0); });
 
 let tests = {
   correctCred: {
@@ -31,11 +29,11 @@ describe('Authenticate and Authorize', () => {
         .set('Authorization', `Basic ${Buffer.from(`${tests.correctCred.username}:${tests.correctCred.password}`).toString('base64')}`)
         .end((err, res) => {
           authRes = res.body;
-          (res).should.have.status(200);
-          (res.body).should.have.property('accessToken');
-          (res.body).should.have.property('refreshToken');
-          (res.body.accessToken).should.be.a('string');
-          (res.body.refreshToken).should.be.a('string');
+          expect(res).to.have.status(200);
+          expect(res.body).to.have.property('accessToken');
+          expect(res.body).to.have.property('refreshToken');
+          expect(res.body.accessToken).to.be.a('string');
+          expect(res.body.refreshToken).to.be.a('string');
           done();
         });
     });
@@ -46,11 +44,11 @@ describe('Authenticate and Authorize', () => {
         .get('/auth/login')
         .set('Authorization', `Basic ${Buffer.from(`${tests.incorrectCred.username}:${tests.incorrectCred.password}`).toString('base64')}`)
         .end((err, res) => {
-          (res).should.have.status(401);
-          (res.body).should.have.property('statusCode');
-          (res.body).should.have.property('status');
-          (res.body).should.have.property('description');
-          (res.body.statusCode).should.equal('S_AUTHCN_F');
+          expect(res).to.have.status(401);
+          expect(res.body).to.have.property('statusCode');
+          expect(res.body).to.have.property('status');
+          expect(res.body).to.have.property('description');
+          expect(res.body.statusCode).to.equal('S_AUTHCN_F');
           done();
         });
     });
@@ -61,16 +59,13 @@ describe('Authenticate and Authorize', () => {
         .get('/auth/refresh-token')
         .set('Bearer', authRes.refreshToken)
         .end((err, res) => {
-          (res).should.have.status(200);
-          (res.body).should.have.property('accessToken');
-          (res.body).should.have.property('refreshToken');
-          (res.body.accessToken).should.be.a('string');
-          (res.body.refreshToken).should.be.a('string');
+          expect(res).to.have.status(200);
+          expect(res.body).to.have.property('accessToken');
+          expect(res.body).to.have.property('refreshToken');
+          expect(res.body.accessToken).to.be.a('string');
+          expect(res.body.refreshToken).to.be.a('string');
           done();
         });
     });
   });
 });
-
-// Uncomment below line(s) to run this test file individually
-// after((done) => { done(); process.exit(0); })
