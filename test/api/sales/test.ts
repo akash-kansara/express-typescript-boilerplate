@@ -22,7 +22,7 @@ let tests = {
     code: 'product.code',
     name: 'Product Name',
     desc: 'description',
-    tags: ['tag1'],
+    tag: 'tag1',
     price: 90
   },
   add: {

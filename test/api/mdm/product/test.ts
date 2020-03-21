@@ -16,19 +16,19 @@ let tests = {
     code: 'code',
     name: 'name',
     desc: 'description',
-    tags: ['tag1', 'tag2'],
+    tag: 'tag1',
     price: 50.78
   },
   update: {
     code: 'code',
     name: 'name',
     desc: 'desc',
-    tags: ['tag1', 'tag2'],
+    tag: 'tag1',
     price: 100.87
   },
   badPayload: {
     code: 'bad-code',
-    tags: 12345
+    tag: 12345
   }
 }
 

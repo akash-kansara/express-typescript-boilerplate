@@ -10,7 +10,7 @@ import { Product } from '../../src/entity/product';
 
 const productRepo: IProductService = container.get<IProductService>(TYPES.ProductRepo);
 
-const product = new Product({ code: 'xyzwef', name: 'name', tags: [], desc: 'desc', price: 500 });
+const product = new Product({ code: 'xyzwef', name: 'name', tag: '', desc: 'desc', price: 500 });
 
 describe('Product service repository', () => {
   it('it should fail to find the product', (done) => {

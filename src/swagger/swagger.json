@@ -399,11 +399,8 @@
         "desc": {
           "type": "string"
         },
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "tag": {
+          "type": "string"
         },
         "price": {
           "type": "number"

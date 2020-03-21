@@ -7,7 +7,7 @@ export interface IProduct {
   code: string;
   name: string;
   desc: string;
-  tags: string[];
+  tag: string;
   price: number;
 }
 
@@ -25,7 +25,7 @@ export class Product implements IProduct {
   public desc: string;
 
   @IsArray()
-  public tags: string[];
+  public tag: string;
 
   @IsNumber()
   public price: number;
@@ -37,7 +37,7 @@ export class Product implements IProduct {
     this.code = get(obj, 'code');
     this.name = get(obj, 'name');
     this.desc = get(obj, 'desc');
-    this.tags = get(obj, 'tags');
+    this.tag = get(obj, 'tag');
     this.price = get(obj, 'price');
   }
 
