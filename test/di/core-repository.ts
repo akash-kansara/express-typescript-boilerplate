@@ -8,6 +8,7 @@ import IRepository from '../../src/core/repository/definition';
 // Entity imports begin
 import LokiRepo from '../../src/core/repository/loki';
 import MongoRepo from '../../src/core/repository/mongo';
+import MySqlRepo from '../../src/core/repository/mysql';
 // Entity imports end
 
 const container = new Container();

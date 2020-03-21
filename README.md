@@ -19,7 +19,7 @@ For rest of things such as DB implementation, Swagger, etc. refer [Project struc
 | logs/ | Logs directory |
 | src/controller/ | Business Logic implementation of services defined in src/sevice/ |
 | src/core/ | Basic functionalities required across the project |
-| src/core/repository/ | Database implementation. Currently supports [MongoDB](https://www.mongodb.com/) and [LokiJS](https://github.com/techfort/LokiJS) |
+| src/core/repository/ | Database implementation. Currently supports [MongoDB](https://www.mongodb.com/), [MySQL](https://www.mysql.com/) and [LokiJS](https://github.com/techfort/LokiJS) |
 | src/di/ | Dependency injection configuration. Implemented using [inversify](https://www.npmjs.com/package/inversify) |
 | src/entity/ | Class and Interface definitions |
 | src/error-handler/ | Express error handler with custom error objects |
