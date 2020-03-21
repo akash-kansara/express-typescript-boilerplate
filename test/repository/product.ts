@@ -4,8 +4,8 @@ import { container } from '../di';
 import { TYPES } from '../../src/di/types';
 import IProductService from '../../src/service/product';
 
-import { StandardError, StandardSuccess } from '../../src/entity/standard-operation';
-import { RepoError, RepoSuccess } from '../../src/core/repository/definition';
+import { StandardSuccess } from '../../src/entity/standard-operation';
+import { RepoSuccess } from '../../src/core/repository/definition';
 import { Product } from '../../src/entity/product';
 
 const productRepo: IProductService = container.get<IProductService>(TYPES.ProductRepo);
