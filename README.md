@@ -32,7 +32,6 @@ For rest of things such as DB implementation, Swagger, etc. refer [Project struc
 | src/index | Handles server initialization and startup |
 | test/ | Test scripts |
 | util/build.js | Utility to build project |
-| logs/ | Logs directory |
 | nodemon.json | [Nodemon](https://github.com/remy/nodemon) configuration |
 | package.json | Project dependencies |
 | tsconfig.json | [Transpiling](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) configuration |
