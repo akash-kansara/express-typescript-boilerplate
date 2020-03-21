@@ -1,10 +1,9 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import { get } from 'lodash';
 chai.use(chaiHttp);
 let should = chai.should();
 
-import server from '../../src';
+import server from '../../../src';
 
 // Uncomment below line(s) to run this test file individually
 // before((done) => {

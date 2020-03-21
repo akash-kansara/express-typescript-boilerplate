@@ -4,7 +4,7 @@ import { get } from 'lodash';
 chai.use(chaiHttp);
 let should = chai.should();
 
-import server from '../../../src';
+import server from '../../../../src';
 
 // Uncomment below line(s) to run this test file individually
 // before((done) => {
@@ -15,26 +15,24 @@ let username = 'root', password = 'root';
 
 let tests = {
   add: {
-    code: 'code',
-    name: 'name',
-    desc: 'description',
-    tags: ['tag1', 'tag2'],
-    price: 50.78
+    firstname: 'First',
+    lastname: 'Last',
+    email: 'first.last@example.com',
+    dob: '1990-01-01'
   },
   update: {
-    code: 'code',
-    name: 'name',
-    desc: 'desc',
-    tags: ['tag1', 'tag2'],
-    price: 100.87
+    firstname: 'First',
+    lastname: 'Lastname',
+    email: 'first.last@example.com',
+    dob: '1990-01-01'
   },
   badPayload: {
-    code: 'bad-code',
-    tags: 12345
+    firstname: 'First',
+    lastname: 12345
   }
 }
 
-describe('MDM - Product', () => {
+describe('MDM - User', () => {
   let authRes;
   before((done) => {
     chai.request(server)
@@ -45,10 +43,10 @@ describe('MDM - Product', () => {
         done();
       });
   });
-  describe('/POST product', () => {
-    it('it should add a product', (done) => {
+  describe('/POST user', () => {
+    it('it should add a user', (done) => {
       chai.request(server)
-        .post('/mdm/product')
+        .post('/mdm/user')
         .set('Bearer', get(authRes.body, 'accessToken'))
         .send(tests.add)
         .end((err, res) => {
@@ -61,26 +59,25 @@ describe('MDM - Product', () => {
         });
     });
   });
-  describe('/GET products', () => {
-    it('it should get all the products', (done) => {
+  describe('/GET users', () => {
+    it('it should get all the users', (done) => {
       chai.request(server)
-        .get('/mdm/product')
+        .get('/mdm/user')
         .set('Bearer', get(authRes.body, 'accessToken'))
         .end((err, res) => {
           (res).should.have.status(200);
           (res.body).should.be.a('array');
-          res.body = res.body.filter(e => e.code === tests.add.code)[0];
-          (res.body.name).should.equal(tests.add.name);
-          (res.body.desc).should.equal(tests.add.desc);
-          (res.body.price).should.equal(tests.add.price);
+          res.body = res.body.filter(e => e.email === tests.add.email)[0];
+          (res.body.firstname).should.equal(tests.add.firstname);
+          (res.body.lastname).should.equal(tests.add.lastname);
           done();
         });
     });
   });
-  describe('/PUT product', () => {
-    it('it should update a product', (done) => {
+  describe('/PUT user', () => {
+    it('it should update a user', (done) => {
       chai.request(server)
-        .put('/mdm/product')
+        .put('/mdm/user')
         .set('Bearer', get(authRes.body, 'accessToken'))
         .send(tests.update)
         .end((err, res) => {
@@ -93,26 +90,25 @@ describe('MDM - Product', () => {
         });
     });
   });
-  describe('/GET product', () => {
+  describe('/GET user', () => {
     it('it should confirm updated details', (done) => {
       chai.request(server)
-        .get('/mdm/product')
+        .get('/mdm/user')
         .set('Bearer', get(authRes.body, 'accessToken'))
         .end((err, res) => {
           (res).should.have.status(200);
           (res.body).should.be.a('array');
-          res.body = res.body.filter(e => e.code === tests.update.code)[0];
-          (res.body.name).should.equal(tests.update.name);
-          (res.body.desc).should.equal(tests.update.desc);
-          (res.body.price).should.equal(tests.update.price);
+          res.body = res.body.filter(e => e.email === tests.update.email)[0];
+          (res.body.firstname).should.equal(tests.update.firstname);
+          (res.body.lastname).should.equal(tests.update.lastname);
           done();
         });
     });
   });
-  describe('/POST product', () => {
+  describe('/POST user', () => {
     it('it should respond with bad payload', (done) => {
       chai.request(server)
-        .post('/mdm/product')
+        .post('/mdm/user')
         .set('Bearer', get(authRes.body, 'accessToken'))
         .send(tests.badPayload)
         .end((err, res) => {
