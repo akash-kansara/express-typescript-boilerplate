@@ -13,14 +13,14 @@ let username = 'root', password = 'root';
 
 let tests = {
   add: {
-    code: 'code',
+    code: 'testcode',
     name: 'name',
     desc: 'description',
     tag: 'tag1',
     price: 50.78
   },
   update: {
-    code: 'code',
+    code: 'testcode',
     name: 'name',
     desc: 'desc',
     tag: 'tag1',
