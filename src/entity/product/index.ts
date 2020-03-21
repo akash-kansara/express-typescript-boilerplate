@@ -1,4 +1,4 @@
-import { IsString, MaxLength, validateSync, IsArray, IsNumber, ValidationError } from 'class-validator';
+import { IsString, MaxLength, validateSync, IsNumber, ValidationError } from 'class-validator';
 import { get } from 'lodash';
 
 import { combineValidationError } from '../../core/entity';
@@ -24,7 +24,7 @@ export class Product implements IProduct {
   @IsString()
   public desc: string;
 
-  @IsArray()
+  @IsString()
   public tag: string;
 
   @IsNumber()
