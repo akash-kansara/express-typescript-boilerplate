@@ -1,5 +1,3 @@
-import { omit } from 'lodash';
-
 import 'reflect-metadata';
 import { injectable, inject } from 'inversify';
 import { TYPES } from '../../di/types';
@@ -35,7 +33,6 @@ export default class SaleRepo implements ISaleService {
           const sales: Sale[] = [];
           if (!Array.isArray(arr)) { arr = []; }
           arr.forEach((sale) => {
-            omit(sale, '_id');
             sales.push(new Sale(sale));
           });
           resolve(sales);

@@ -1,9 +1,0 @@
-GET http://localhost:3000/mdm/user
-
-###
-POST http://localhost:3000/mdm/user
-Content-Type: application/json
-
-{
-  "username": "kans"
-}

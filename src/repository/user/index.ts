@@ -1,5 +1,3 @@
-import { omit } from 'lodash';
-
 import 'reflect-metadata';
 import { injectable, inject } from 'inversify';
 import { TYPES } from '../../di/types';
@@ -35,7 +33,6 @@ export default class UserRepo implements IUserService {
           const users: User[] = [];
           if (!Array.isArray(arr)) { arr = []; }
           arr.forEach((user) => {
-            omit(user, '_id');
             users.push(new User(user));
           });
           resolve(users);
@@ -49,7 +46,6 @@ export default class UserRepo implements IUserService {
       this.repository.readOne('user_mst', { email })
         .then((user: void | object) => {
           if (typeof user !== 'object') { user = {} as object; }
-          omit(user, '_id');
           resolve(new User(user));
         })
         .catch(() => reject(new RepoError('Failed to find user')));

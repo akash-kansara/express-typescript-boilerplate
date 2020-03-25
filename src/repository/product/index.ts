@@ -1,5 +1,3 @@
-import { omit } from 'lodash';
-
 import 'reflect-metadata';
 import { injectable, inject } from 'inversify';
 import { TYPES } from '../../di/types';
@@ -35,7 +33,6 @@ export default class ProductRepo implements IProductService {
           const products: Product[] = [];
           if (!Array.isArray(arr)) { arr = []; }
           arr.forEach((product) => {
-            omit(product, '_id');
             products.push(new Product(product));
           });
           resolve(products);
@@ -49,7 +46,6 @@ export default class ProductRepo implements IProductService {
       this.repository.readOne('product_mst', { code })
         .then((product: void | object) => {
           if (typeof product !== 'object') { product = {} as object; }
-          omit(product, '_id');
           resolve(new Product(product));
         })
         .catch(() => reject(new RepoError('Failed to find product')));
