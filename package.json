@@ -1,6 +1,6 @@
 {
-  "name": "express-ts-boiler",
-  "version": "0.0.0",
+  "name": "express-typescript-boiler",
+  "version": "1.0.0",
   "scripts": {
     "build": "node ./util/build.js",
     "lint": "tslint --project \"tsconfig.json\" --quiet",
