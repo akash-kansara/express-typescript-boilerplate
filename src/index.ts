@@ -29,16 +29,16 @@ app.use(routes);
 app.use((req: Request, res: Response, next: NextFunction) => { next(new APINotFoundError()); });
 app.use(errorHandlerMiddleware);
 
-let server: Server = app.listen((process.env['NODE_PORT'] || process.env['APP.PORT']), () => {
+const server: Server = app.listen((process.env['NODE_PORT'] || process.env['APP.PORT']), () => {
   eventHandler.emit('sys-info', `Express app started at ${process.env['NODE_PORT'] || process.env['APP.PORT']}.`);
 });
 
-let closeApp = async (server: Server) => {
+const closeApp = async (server: Server) => {
   try { await repository.disconnect(); } catch (err) { }
   try { server.close(); } catch (err) { }
   eventHandler.emit('sys-info', 'Shutting down app.');
   process.exit(0);
-}
+};
 
 process.on('SIGINT', () => { closeApp(server); });
 process.on('SIGTERM', () => { closeApp(server); });
