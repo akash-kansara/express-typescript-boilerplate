@@ -8,7 +8,7 @@ This app implements a small retail store wherein store administrators can create
 
 ## Project Structure logic
 
-Core idea is to provide service definitions which conform to business logic as interfaces under src/service/ (service definitions). Service definitions may or may not be dependent on a persistent storage (database / external APIs / files) but if it they are, then persistent storage is implemented by implementing corresponding interface at src/repository/ (service repository). Similarly, business logic of a particular service definition is defined at src/controller/ (service controller). If persistent storage is required then service controller depends upon a service repository which implements the same service definition. Express APIs then directly use service controller objects.
+Core idea is to provide service definitions which conform to business logic as interfaces under src/service/ (service definitions). Service definitions may or may not be dependent on a persistent storage (database / external APIs / files) but if it they are, then persistent storage is implemented by implementing corresponding interface at src/repository/ (service repository). Similarly, business logic of a particular service definition is defined at src/controller/ (service controller). If persistent storage is required then service controller depends upon a service repository which implements the relevant service definition. Express APIs then directly use service controller objects.
 
 For rest of things such as DB implementation, Swagger, etc. refer [Project structure](https://github.com/akash-kansara/express-typescript-boilerplate#project-structure)
 
@@ -35,7 +35,6 @@ For rest of things such as DB implementation, Swagger, etc. refer [Project struc
 | test/di/ | Dependency injection configuration for controller and repository tests |
 | test/controller/ | Controller tests |
 | test/repository/ | Repository tests |
-| test/di/ | Dependency injection configuration for controller and repository tests |
 | test/rest/ | Tests using [REST client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client). Not required. Not executed during `npm test`. |
 | util/build.js | Utility to build project |
 | nodemon.json | [Nodemon](https://github.com/remy/nodemon) configuration |
