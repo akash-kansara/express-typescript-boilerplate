@@ -53,7 +53,6 @@ For rest of things such as DB implementation, Swagger, etc. refer [Project struc
 ### Step 2: Get project
 Clone this repository and go to this project's root location
 
-
 ### Step 3: Add global dependencies
 
 ```bash
@@ -66,35 +65,38 @@ npm i -g tsc ts-node ts-mocha tslint nodemon
 npm i -D
 ```
 
-### Step 5: Run in dev environment
+### Step 5: Configure Database
+
+Refer [DB configuration file](DB.md)
+
+### Step 6: Run in dev environment
 
 ```bash
 npm run start:dev
 ```
 
-### Step 6: Check API
+### Step 7: Check API
 
 ```bash
 Open browser and go to http://localhost:3000/api-docs
 ```
 
-### Step 7 (Optional): Run test cases
+### Step 8 (Optional): Run test cases
 
 ```bash
 npm test
 ```
 
-### Step 8: Build for production
+### Step 9: Build for production
 
 ```bash
 npm run build
 ```
 
-### Step 9: Run in production environment
+### Step 10: Run in production environment
 
 ```bash
 npm start
 ```
 ## Upcoming changes
-1. Pictorial Representation of Project Structure explanation
-2. Note on DB configuration and installation
+- Pictorial Representation of Project Structure explanation
