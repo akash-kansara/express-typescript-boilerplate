@@ -97,5 +97,4 @@ npm start
 ```
 ## Upcoming changes
 1. Pictorial Representation of Project Structure explanation
-2. Fix X-Powered-By issue
-3. Note on DB configuration and installation
+2. Note on DB configuration and installation

@@ -1,4 +1,4 @@
-import Router from 'express';
+import { Router } from 'express';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { set } from 'lodash';
