@@ -1,4 +1,22 @@
-# Database configuration for [Express Typescript Boilerplate](https://github.com/akash-kansara/express-typescript-boilerplate)
+## Database configuration for [Express Typescript Boilerplate](https://github.com/akash-kansara/express-typescript-boilerplate)
+
+## Note
+By default, this application connects to LokiJS DB in `dev` environment, MySQL in `staging` environment and MongoDB in `prod` environment. You can change to any database in any environment with either of the following options:
+
+Option 1: Set following variables in env files located at env/<dev / staging / prod>.env
+
+| Database | Variable |
+| ------------- | ------------- |
+| MongoDB | `REPOSITORY.DEFAULT=MONGO` |
+| MySQL | `REPOSITORY.DEFAULT=MYSQL` |
+| LokiJS | `REPOSITORY.DEFAULT=LOKI` |
+
+Option 2: Set CLI argument while running the application
+| Database | TS CLI Argument | Built JS CLI Argument |
+| ------------- | ------------- | ------------- |
+| MongoDB | `ts-node ./src -r MONGO` | `node ./dist -r MONGO` |
+| MySQL | `ts-node ./src -r MYSQL` | `node ./dist -r MYSQL` |
+| LokiJS | `ts-node ./src -r LOKI` | `node ./dist -r LOKI` |
 
 ## MongoDB config. Install MongoDB from [here](https://docs.mongodb.com/manual/administration/install-community/)
 
