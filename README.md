@@ -20,16 +20,16 @@ For rest of things such as DB implementation, Swagger, etc. refer [Project struc
 															                        |            User 			    |
 															                        |      - getDetail()        |
 															                        |                           |
-   ┌-----------┐	  ┌--------------------------┐			|         FileHandler 		  |
-   |     C     |	  |            API           |			|      - upload()           |
-   |     L     |	  |       Depends on SC	     |			|      - download()         |
-   |     I     |	  |                          |	┌---|                           |---┐
+   ┌-----------┐    ┌--------------------------┐			|         FileHandler 		  |
+   |     C     |    |            API           |			|      - upload()           |
+   |     L     |    |       Depends on SC	     |			|      - download()         |
+   |     I     |    |                          |	┌---|                           |---┐
    |     E     |◄---|  - /upload               |	|  	|        Authenticate       |   |
-   |     N     |	  |      └FM.uploadAuth()    |	|  	|      - authUser()         |   |
-   |     T     |	  |                          |	|  	|                           |   |
-   |           |	  |  - /download             |	|  	|         FileManager       |   |
-   | Calls API |	  |     └FM.downloadAuth()   |	|  	|      - uploadAuth()       |   |
-   └-----------┘	  └--------------------------┘	|  	|      - downloadAuth()     |   |
+   |     N     |    |      └FM.uploadAuth()    |	|  	|      - authUser()         |   |
+   |     T     |    |                          |	|  	|                           |   |
+   |           |    |  - /download             |	|  	|         FileManager       |   |
+   | Calls API |    |     └FM.downloadAuth()   |	|  	|      - uploadAuth()       |   |
+   └-----------┘    └--------------------------┘	|  	|      - downloadAuth()     |   |
 							                	▲					        |  	|                           |   |
 								                |					        |  	└---------------------------┘   |
 								                |					        ▼  									                ▼
