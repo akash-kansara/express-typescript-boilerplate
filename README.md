@@ -14,42 +14,42 @@ For rest of things such as DB implementation, Swagger, etc. refer [Project struc
 
 #### Pictorial representation for a file management service with user authentication:
 ```
-															                        ┌---------------------------┐
-															                        |  Service Definition (SD)  |
-															                        |                           |
-															                        |            User 			    |
-															                        |      - getDetail()        |
-															                        |                           |
-   ┌-----------┐    ┌--------------------------┐			|         FileHandler 		  |
-   |     C     |    |            API           |			|      - upload()           |
-   |     L     |    |       Depends on SC	     |			|      - download()         |
-   |     I     |    |                          |	┌---|                           |---┐
-   |     E     |◄---|  - /upload               |	|  	|        Authenticate       |   |
-   |     N     |    |      └FM.uploadAuth()    |	|  	|      - authUser()         |   |
-   |     T     |    |                          |	|  	|                           |   |
-   |           |    |  - /download             |	|  	|         FileManager       |   |
-   | Calls API |    |     └FM.downloadAuth()   |	|  	|      - uploadAuth()       |   |
-   └-----------┘    └--------------------------┘	|  	|      - downloadAuth()     |   |
-							                	▲					        |  	|                           |   |
-								                |					        |  	└---------------------------┘   |
-								                |					        ▼  									                ▼
-						┌-------------------------------------------┐			      ┌-------------------------------------------┐
-						|          Service Controller (SC)          |			      |          Service Repository (SR)          |
-						|      Implements SD, may depend on SR      |			      |  Implements SD, connects to other API, DB |
-						|                                           |			      |                                           |
-						|            Authenticate (AUTH)     		    |◄----------|               User (USR)     		          |
-						|           - authUser()                    |			      |           - getDetail()                   |
-						|             └USR.getDetail() 		 	        |			      |             └Query Database 		 	        |
-						|                                           |			      |                                           |
-						|              FileManager (FM)		          |			      |            FileHandler (FH)		            |
-						|           - uploadAuth()                  |			      |           - upload()                      |
-						|             └AUTH.authUser()              |			      |             └Upload file to server        |
-						|              └FH.upload()                 |			      |                                           |
-						|                                           |			      |           - download()                    |
-						|           - downloadAuth()                |			      |             └Download file from server    |
-						|             └AUTH.authUser()              |			      └-------------------------------------------┘
-						|              └FH.download()               |
-						└-------------------------------------------┘
+                                                            ┌---------------------------┐
+                                                            |  Service Definition (SD)  |
+                                                            |                           |
+                                                            |            User           |
+                                                            |      - getDetail()        |
+                                                            |                           |
+   ┌-----------┐    ┌--------------------------┐            |         FileHandler       |
+   |     C     |    |            API           |            |      - upload()           |
+   |     L     |    |       Depends on SC      |            |      - download()         |
+   |     I     |    |                          |     ┌------|                           |------┐
+   |     E     |◄---|   - /upload              |     |      |        Authenticate       |      |
+   |     N     |    |      └FM.uploadAuth()    |     |      |      - authUser()         |      |
+   |     T     |    |                          |     |      |                           |      |
+   |           |    |  - /download             |     |      |         FileManager       |      |
+   | Calls API |    |     └FM.downloadAuth()   |     |      |      - uploadAuth()       |      |
+   └-----------┘    └--------------------------┘     |      |      - downloadAuth()     |      |
+                                ▲                    |      |                           |      |
+                                |                    |      └---------------------------┘      |
+                                |                    ▼                                         ▼
+                        ┌-------------------------------------------┐            ┌-------------------------------------------┐
+                        |          Service Controller (SC)          |            |          Service Repository (SR)          |
+                        |      Implements SD, may depend on SR      |            |  Implements SD, connects to other API, DB |
+                        |                                           |            |                                           |
+                        |            Authenticate (AUTH)            |◄-----------|               User (USR)                  |
+                        |           - authUser()                    |            |           - getDetail()                   |
+                        |             └USR.getDetail()              |            |             └Query Database               |
+                        |                                           |            |                                           |
+                        |              FileManager (FM)             |            |            FileHandler (FH)               |
+                        |           - uploadAuth()                  |            |           - upload()                      |
+                        |             └AUTH.authUser()              |            |             └Upload file to server        |
+                        |              └FH.upload()                 |            |                                           |
+                        |                                           |            |           - download()                    |
+                        |           - downloadAuth()                |            |             └Download file from server    |
+                        |             └AUTH.authUser()              |            └-------------------------------------------┘
+                        |              └FH.download()               |
+                        └-------------------------------------------┘
 ```
 
 ## Project structure
