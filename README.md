@@ -24,7 +24,7 @@ For rest of things such as DB implementation, Swagger, etc. refer [Project struc
    |     C     |	  |            API           |			|      - upload()           |
    |     L     |	  |       Depends on SC	     |			|      - download()         |
    |     I     |	  |                          |	┌---|                           |---┐
-   |     E     |◄---|   - /upload              |	|  	|        Authenticate       |   |
+   |     E     |◄---|  - /upload               |	|  	|        Authenticate       |   |
    |     N     |	  |      └FM.uploadAuth()    |	|  	|      - authUser()         |   |
    |     T     |	  |                          |	|  	|                           |   |
    |           |	  |  - /download             |	|  	|         FileManager       |   |
