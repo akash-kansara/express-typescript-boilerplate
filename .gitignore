@@ -28,6 +28,9 @@ package-lock.json
 # Output of 'npm pack'
 *.tgz
 
+# Code coverage output
+.nyc_output
+
 # VisualStudioCode
 .vscode/*
 !.vscode/settings.json

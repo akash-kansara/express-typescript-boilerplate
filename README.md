@@ -1,4 +1,5 @@
 # Express TypeScript Boilerplate
+[![Dependency Status](https://david-dm.org/akash-kansara/express-typescript-boilerplate.svg)](https://david-dm.org/akash-kansara/express-typescript-boilerplate) [![devDependency Status](https://david-dm.org/akash-kansara/express-typescript-boilerplate/dev-status.svg)](https://david-dm.org/akash-kansara/express-typescript-boilerplate#info=devDependencies)
 
 This project attempts to provide a simple framework for API development using [express](https://github.com/expressjs/express) with the freedom of selecting and implementing any database.
 
